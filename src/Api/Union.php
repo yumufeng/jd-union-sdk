@@ -9,7 +9,9 @@
 namespace JdMediaSdk\Api;
 
 
-class Union
+use JdMediaSdk\GateWay;
+
+class Union extends GateWay
 {
 
 }

@@ -9,7 +9,9 @@
 namespace JdMediaSdk\Api;
 
 
-class Order
+use JdMediaSdk\GateWay;
+
+class Order extends GateWay
 {
 
 }

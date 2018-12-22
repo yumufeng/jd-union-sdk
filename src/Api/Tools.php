@@ -9,7 +9,9 @@
 namespace JdMediaSdk\Api;
 
 
-class Tools
+use JdMediaSdk\GateWay;
+
+class Tools extends GateWay
 {
 
 }

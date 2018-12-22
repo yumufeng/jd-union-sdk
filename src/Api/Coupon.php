@@ -9,7 +9,9 @@
 namespace JdMediaSdk\Api;
 
 
-class Coupon
+use JdMediaSdk\GateWay;
+
+class Coupon extends GateWay
 {
 
 }
