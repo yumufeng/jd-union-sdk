@@ -8,10 +8,12 @@
 
 namespace JdMediaSdk;
 
+use JdMediaSdk\Api\Good;
+
 /**
- * @package JdMediaSdk
+ * @property Good good
  */
-class JdMediaSdkFatory
+class JdFatory
 {
 
     /**
@@ -22,7 +24,7 @@ class JdMediaSdkFatory
 
     public function __construct($config = null)
     {
-        if (empty($this->config)) {
+        if (empty($config)) {
             throw new \Exception('no config');
         }
         $this->config = $config;

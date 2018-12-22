@@ -6,8 +6,10 @@
  * Time: 19:03
  */
 
-namespace JdMediaSdk;
+namespace JdMediaSdk\Tools;
 
+
+use function JdMediaSdk\curl_get;
 
 class GateWay
 {
@@ -23,6 +25,7 @@ class GateWay
 
     public function __construct($config)
     {
+
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
         $this->access_token = $config['access_token'];

@@ -9,7 +9,7 @@
 namespace JdMediaSdk\Api;
 
 
-use JdMediaSdk\GateWay;
+use JdMediaSdk\Tools\GateWay;
 
 class Good extends GateWay
 {
