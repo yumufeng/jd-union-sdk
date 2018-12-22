@@ -1,0 +1,29 @@
+{
+  "name": "jdmediaSdk",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "yumufeng",
+      "email": "tsj100@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "classmap": [
+    ],
+    "psr-4": {
+      "JdMediaSdk\\": "src"
+    },
+    "files": [
+      "src/Tools/Helpers.php"
+    ]
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.laravel-china.org"
+    }
+  }
+}
