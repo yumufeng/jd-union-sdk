@@ -14,7 +14,7 @@ use JdMediaSdk\Tools\JdGateWay;
 class Promotion extends JdGateWay
 {
     /**
-     * @api 订单查询接口
+     * @api 订单查询接口 （查询级别，分钟查询）
      * @line https://union.jd.com/#/openplatform/api/650
      * @param array $params
      * @return bool|string
