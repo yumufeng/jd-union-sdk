@@ -11,52 +11,37 @@ namespace JdMediaSdk\Tools;
 
 use function JdMediaSdk\curl_get;
 
-class GateWay
+class JdGateWay
 {
     protected $appkey;
     protected $appSecret;
     protected $access_token;
-    const URL = 'https://api.jd.com/routerjson?';
+    const URL = 'https://router.jd.com/api?';
+
+    // 需要access_token
+    const NEED_ACCESS_TOKEN = false;
     //联盟的ID
     protected $unionId;
     //推广位ID
     protected $webId;
-    private $ua = 'pc';
+    protected $error;
 
-    public function __construct($config)
+    public function __construct(array $config)
     {
 
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
-        $this->access_token = $config['access_token'];
-        $this->webId = isset($config['webId']) ? $config['webId'] : '1479909014';
-        $this->unionId = isset($config['unionId']) ? $config['unionId'] : '1000586580';
     }
 
-    /**
-     * 设置联盟ID
-     * @param $webId
-     * @param $unionId
-     * @return $this
-     */
-    public function setUnionId($webId, $unionId)
+    public function setAccessToken(string $accessToken)
     {
-        $this->webId = $webId;
-        $this->unionId = $unionId;
-        return $this;
+        $this->access_token = $accessToken;
     }
 
-    /**
-     * 设置类型，pc或者
-     * @param string $ua pc或者wl
-     * @return GateWay
-     */
-    public function setUaChannel($ua = 'wl')
+    public function getError()
     {
-        $this->ua = $ua;
-        return $this;
+        return $this->error;
     }
-
 
     /**
      * 生成签名
@@ -68,7 +53,9 @@ class GateWay
         ksort($parameter);
         $str = '';
         foreach ($parameter as $key => $value) {
-            $str .= urlencode($key) . urlencode($value);
+            if (!empty($value)) {
+                $str .= ($key) . ($value);
+            }
         }
 
         $str = $this->appSecret . $str . $this->appSecret;
@@ -81,18 +68,15 @@ class GateWay
     protected function setParameter($method, array $specialParameter)
     {
         $time = date('Y-m-d H:i:s', time());
-        $parameter = array_merge([
-            'channel' => $this->ua,
-            'unionId' => $this->unionId,
-            'webId' => $this->webId,
-        ], $specialParameter);
         $publicParameter = array(
             'access_token' => $this->access_token,
             'app_key' => $this->appkey,
-            'v' => '2.0',
+            'format' => 'json',
+            'v' => '1.0',
             'timestamp' => $time,
             'method' => $method,
-            '360buy_param_json' => json_encode($parameter)
+            'sign_method' => 'md5',
+            'param_json' => json_encode($specialParameter)
         );
         $sign = $this->getStringToSign($publicParameter);
 
@@ -102,8 +86,7 @@ class GateWay
         foreach ($parameter as $key => $value) {
             $str .= urlencode($key) . '=' . urlencode($value) . '&';
         }
-
-        return $str;
+        return rtrim($str, '&');
     }
 
     /**
@@ -116,6 +99,29 @@ class GateWay
     {
         $str = self::setParameter($method, $specialParameter);
         $url = self::URL . $str;
-        return curl_get($url);
+        $result = curl_get($url);
+        return $this->parseReps($result);
+
+    }
+
+    /**
+     * 解析参数
+     * @param $result
+     * @return mixed
+     */
+    private function parseReps($result)
+    {
+        $decodeObject = json_decode($result, true);
+        $nowLists = current($decodeObject);
+        if ($nowLists['code'] != 0) {
+            $this->error = isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息';
+            return false;
+        }
+        $finally = json_decode($nowLists['result'], true);
+        if ($finally['code'] != 200) {
+            $this->error = $finally['message'];
+            return false;
+        }
+        return $finally['data'];
     }
 }

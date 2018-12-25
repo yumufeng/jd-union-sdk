@@ -9,13 +9,13 @@ error_reporting(E_ALL);
 require 'vendor/autoload.php';
 
 $config = [
-    'appkey' => 'FE7435346046BCF7A1143D8CC5633980',
-    'appSecret' => '0338be21a31b465ebbd053fed43837db',
-    'access_token' => '267709ee-c9c9-4c82-90c4-c813a8977c82',
-    'webId' => '1479909014',
-    'unionId' => '1000586580',
+    'appkey' => '947d298f358e40a0ac04b9712a6607cc',
+    'appSecret' => 'ab09c191a57c4179915f509736e7e528',
 ];
 
 $client = new \JdMediaSdk\JdFatory($config);
 
-$result = $client->good->Info(['965447','3480573']);
+$result = $client->good->Info(['9615447','3480573']);
+
+
+var_dump($result);

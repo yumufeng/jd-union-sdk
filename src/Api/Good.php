@@ -2,38 +2,35 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/12/22
- * Time: 17:59
+ * Date: 2018/12/24
+ * Time: 9:56
  */
 
 namespace JdMediaSdk\Api;
 
 
-use JdMediaSdk\Tools\GateWay;
+use JdMediaSdk\Tools\JdGateWay;
 
-class Good extends GateWay
+class Good extends JdGateWay
 {
+
     /**
-     * jingdong.service.promotion.goodsInfo      获取推广商品信息接口
-     * @line http://jos.jd.com/api/detail.htm?apiName=jingdong.service.promotion.goodsInfo&id=1413
-     * @param $skuId 多个用逗号
-     * @return bool|false|string
+     * @api 获取推广商品信息接口
+     * @line https://union.jd.com/#/openplatform/api/563
+     * @param $skuIds
+     * @return bool|string
      */
-    public function Info($skuId)
+    public function info($skuIds)
     {
-        if (is_array($skuId)) {
-            $skuId = implode(',', $skuId);
+        if (is_array($skuIds)) {
+            $skuIds = implode(',', $skuIds);
         }
-        $method = 'jingdong.service.promotion.goodsInfo';
-        $specialParameter = [
-            'skuIds' => $skuId
+        $params = [
+            'skuIds' => $skuIds
         ];
-        $goodsJson = $this->send($method, $specialParameter);
-        $goodsList = json_decode($goodsJson, true);
-        $goodsListDetail = json_decode($goodsList['jingdong_service_promotion_goodsInfo_responce']['getpromotioninfo_result'], true);
-        if ($goodsListDetail['sucessed'] == false) {
-            return [];
-        }
-        return $goodsListDetail['result'];
+        $result = $this->send('jd.union.open.goods.promotiongoodsinfo.query', $params);
+        return $result;
     }
+
+
 }
