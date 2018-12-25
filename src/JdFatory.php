@@ -9,15 +9,18 @@
 namespace JdMediaSdk;
 
 use JdMediaSdk\Api\Good;
+use JdMediaSdk\Api\Link;
 use JdMediaSdk\Api\Promotion;
 
 /**
  * @property Good good  查询商品API
  * @property Promotion promotion  PID&推广位API
+ * @property Link link 获取推广链接API
  */
 class JdFatory
 {
     private $config;
+    private $error;
 
     public function __construct($config = null)
     {
@@ -36,7 +39,7 @@ class JdFatory
                 throw new \Exception('api undefined');
                 return false;
             }
-            $new = new $classname($this->config);
+            $new = new $classname($this->config, $this);
             if ($new::NEED_ACCESS_TOKEN == true) {
                 $new->setAccessToken($this->getAccessToken());
             }
@@ -51,7 +54,19 @@ class JdFatory
      */
     private function getAccessToken()
     {
-
+        //Todo
     }
+
+    public function setError($message)
+    {
+        $this->error = $message;
+    }
+
+
+    public function getError()
+    {
+        return $this->error;
+    }
+
 
 }

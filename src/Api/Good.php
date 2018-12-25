@@ -13,6 +13,20 @@ use JdMediaSdk\Tools\JdGateWay;
 
 class Good extends JdGateWay
 {
+    /**
+     * @api 关键词商品查询接口【申请】
+     * @line https://union.jd.com/#/openplatform/api/628
+     * @param array $params
+     * @return bool|string
+     */
+    public function query(array $params)
+    {
+        $reqParams = [
+            'goodsReqDTO' => $params,
+        ];
+        $result = $this->send('jd.union.open.goods.query', $reqParams);
+        return $result;
+    }
 
     /**
      * @api 获取推广商品信息接口
@@ -32,5 +46,20 @@ class Good extends JdGateWay
         return $result;
     }
 
-
+    /**
+     * @api  商品类目查询
+     * @line https://union.jd.com/#/openplatform/api/693
+     *
+     */
+    public function category($parentId, $grade)
+    {
+        $params = [
+            'req' => [
+                'parentId' => $parentId,
+                'grade' => $grade
+            ]
+        ];
+        $result = $this->send('jd.union.open.category.goods.get', $params);
+        return $result;
+    }
 }

@@ -10,6 +10,7 @@ namespace JdMediaSdk\Tools;
 
 
 use function JdMediaSdk\curl_get;
+use JdMediaSdk\JdFatory;
 
 class JdGateWay
 {
@@ -20,17 +21,13 @@ class JdGateWay
 
     // 需要access_token
     const NEED_ACCESS_TOKEN = false;
-    //联盟的ID
-    protected $unionId;
-    //推广位ID
-    protected $webId;
-    protected $error;
 
-    public function __construct(array $config)
+    public function __construct(array $config, JdFatory $jdFatory)
     {
 
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
+        $this->jdFatory = $jdFatory;
     }
 
     public function setAccessToken(string $accessToken)
@@ -38,9 +35,9 @@ class JdGateWay
         $this->access_token = $accessToken;
     }
 
-    public function getError()
+    public function setError($message)
     {
-        return $this->error;
+        return $this->jdFatory->setError($message);
     }
 
     /**
@@ -95,12 +92,12 @@ class JdGateWay
      * @param $specialParameter
      * @return bool|string
      */
-    protected function send($method, $specialParameter)
+    protected function send($method, $specialParameter, $raw = false)
     {
         $str = self::setParameter($method, $specialParameter);
         $url = self::URL . $str;
         $result = curl_get($url);
-        return $this->parseReps($result);
+        return $this->parseReps($result, $raw);
 
     }
 
@@ -109,19 +106,22 @@ class JdGateWay
      * @param $result
      * @return mixed
      */
-    private function parseReps($result)
+    private function parseReps($result, $raw)
     {
         $decodeObject = json_decode($result, true);
         $nowLists = current($decodeObject);
         if ($nowLists['code'] != 0) {
-            $this->error = isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息';
+            $this->setError(isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息');
             return false;
         }
         $finally = json_decode($nowLists['result'], true);
         if ($finally['code'] != 200) {
-            $this->error = $finally['message'];
+            $this->setError($finally['message']);
             return false;
         }
-        return $finally['data'];
+        if ($raw == true) {
+            return $finally;
+        }
+        return isset($finally['data']) ? $finally['data'] : [];
     }
 }
