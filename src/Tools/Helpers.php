@@ -8,7 +8,6 @@
 
 namespace JdMediaSdk;
 
-
 function curl_get($url)
 {
     $ch = curl_init();
