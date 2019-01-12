@@ -54,7 +54,6 @@ class JdFatory
      */
     private function getAccessToken()
     {
-        //Todo
     }
 
     public function setError($message)

@@ -9,3 +9,24 @@ API列表地址：https://union.jd.com/#/openplatform/api
 ### 使用
 
 `composer require yumufeng/jd-union-sdk`
+
+
+示例如下：
+```php
+$config = [
+    'appkey' => '',
+    'appSecret' => '',
+];
+
+$client = new \JdMediaSdk\JdFatory($config);
+
+//获取商品
+$goods = $client->good->Info(['3480573']);
+
+如果有错误将会返回false
+if (!$result){
+     var_dump($client->getError());
+}
+
+```
+

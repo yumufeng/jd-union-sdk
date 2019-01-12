@@ -49,7 +49,9 @@ class Good extends JdGateWay
     /**
      * @api  商品类目查询
      * @line https://union.jd.com/#/openplatform/api/693
-     *
+     * @param $parentId
+     * @param $grade
+     * @return bool|string
      */
     public function category($parentId, $grade)
     {

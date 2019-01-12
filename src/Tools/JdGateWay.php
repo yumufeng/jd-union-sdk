@@ -104,9 +104,10 @@ class JdGateWay
     /**
      * 解析参数
      * @param $result
+     * @param bool $raw
      * @return mixed
      */
-    private function parseReps($result, $raw)
+    private function parseReps($result, $raw = false)
     {
         $decodeObject = json_decode($result, true);
         $nowLists = current($decodeObject);
