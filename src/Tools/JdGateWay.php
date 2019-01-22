@@ -16,23 +16,50 @@ class JdGateWay
 {
     protected $appkey;
     protected $appSecret;
-    protected $access_token;
-    const URL = 'https://router.jd.com/api?';
+    protected $siteId;
+    protected $unionId;
+    protected $positionId;
+    protected $pid;
+    /**
+     * 是否需要申请权限
+     */
+    protected $is_auth = false;
 
+    protected $access_token;
     // 需要access_token
     const NEED_ACCESS_TOKEN = false;
+    const URL = 'https://router.jd.com/api?';
+    const AUTH_URL = 'https://jd.open.apith.cn/unionv2/';
+
+    /**
+     * @var JdFatory
+     */
+    protected $jdFatory;
 
     public function __construct(array $config, JdFatory $jdFatory)
     {
 
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
+        $this->siteId = $config['siteId'];
+        $this->unionId = $config['unionId'];
+        $this->positionId = $config['positionId'];
+        $this->pid = $config['unionId'] . '_' . $config['siteId'] . '_' . $config['positionId'];
         $this->jdFatory = $jdFatory;
     }
 
     public function setAccessToken(string $accessToken)
     {
         $this->access_token = $accessToken;
+    }
+
+    /**
+     * 是否需要申请权限
+     * @param  $is_auth
+     */
+    public function setIsAuth($is_auth)
+    {
+        $this->is_auth = $is_auth;
     }
 
     public function setError($message)
@@ -90,12 +117,17 @@ class JdGateWay
      * 发送参数请求
      * @param $method
      * @param $specialParameter
+     * @param bool $raw
      * @return bool|string
      */
-    protected function send($method, $specialParameter, $raw = false)
+    protected function send($method, array $specialParameter, $raw = false)
     {
-        $str = self::setParameter($method, $specialParameter);
-        $url = self::URL . $str;
+        if ($this->is_auth === true) {
+            $url = self::AUTH_URL . $method . '?' . http_build_query($specialParameter);
+        } else {
+            $str = self::setParameter($method, $specialParameter);
+            $url = self::URL . $str;
+        }
         $result = curl_get($url);
         return $this->parseReps($result, $raw);
 
@@ -110,19 +142,30 @@ class JdGateWay
     private function parseReps($result, $raw = false)
     {
         $decodeObject = json_decode($result, true);
-        $nowLists = current($decodeObject);
-        if ($nowLists['code'] != 0) {
-            $this->setError(isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息');
-            return false;
+        if ($this->is_auth === true) {
+            if ($raw == true) {
+                return $decodeObject;
+            }
+            if ($decodeObject['code'] != 1) {
+                $this->setError($decodeObject['msg']);
+                return false;
+            }
+            return isset($decodeObject['data']) ? $decodeObject['data'] : [];
+        } else {
+            $nowLists = current($decodeObject);
+            if ($nowLists['code'] != 0) {
+                $this->setError(isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息');
+                return false;
+            }
+            $finally = json_decode($nowLists['result'], true);
+            if ($finally['code'] != 200) {
+                $this->setError($finally['message']);
+                return false;
+            }
+            if ($raw == true) {
+                return $finally;
+            }
+            return isset($finally['data']) ? $finally['data'] : [];
         }
-        $finally = json_decode($nowLists['result'], true);
-        if ($finally['code'] != 200) {
-            $this->setError($finally['message']);
-            return false;
-        }
-        if ($raw == true) {
-            return $finally;
-        }
-        return isset($finally['data']) ? $finally['data'] : [];
     }
 }
