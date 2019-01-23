@@ -22,9 +22,10 @@ class Coupon extends JdGateWay
     public function query($url)
     {
         $this->setIsAuth(true);
-        $params['couponUrls'] = $url;
         if (is_string($url)) {
-            $params['couponUrls'] = [$url];
+            $params['couponUrls'] = $url;
+        } else {
+            $params['couponUrls'] = implode(',', $url);
         }
         return $this->send('queryCoupon', $params);
 

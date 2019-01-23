@@ -57,12 +57,12 @@ class JdGateWay
      * 是否需要申请权限
      * @param  $is_auth
      */
-    public function setIsAuth($is_auth)
+    protected function setIsAuth($is_auth)
     {
         $this->is_auth = $is_auth;
     }
 
-    public function setError($message)
+    protected function setError($message)
     {
         return $this->jdFatory->setError($message);
     }

@@ -21,6 +21,9 @@ class Good extends JdGateWay
      */
     public function query(array $params)
     {
+        if (!isset($params['pageIndex'])) {
+            $params['pageIndex'] = 1;
+        }
         $this->setIsAuth(true);
         $result = $this->send('queryGoods', $params);
         return $result;
@@ -82,7 +85,7 @@ class Good extends JdGateWay
      * @param $grade
      * @return bool|string
      */
-    public function category($parentId, $grade)
+    public function category($parentId = 0, $grade = 0)
     {
         $params = [
             'req' => [

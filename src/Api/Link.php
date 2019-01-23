@@ -20,8 +20,14 @@ class Link extends JdGateWay
      * @param array $params
      * @return bool|string
      */
-    public function get(array $params)
+    public function get($param)
     {
+        $params = [];
+        if (is_string($param)) {
+            $params['materialId'] = $param;
+        } else {
+            $params = $param;
+        }
         if (!isset($params['siteId'])) {
             $params['siteId'] = $this->siteId;
         }
@@ -44,11 +50,9 @@ class Link extends JdGateWay
      */
     public function byUnionId($url, $conponUrl = '')
     {
+        $this->setIsAuth(true);
         if (!isset($params['unionId'])) {
             $params['unionId'] = $this->unionId;
-        }
-        if (!isset($params['pid'])) {
-            $params['pid'] = $this->pid;
         }
         if (!isset($params['positionId'])) {
             $params['positionId'] = $this->positionId;
@@ -59,7 +63,6 @@ class Link extends JdGateWay
         if (!empty($conponUrl)) {
             $params['couponUrl'] = $conponUrl;
         }
-
         return $this->send('getByUnionidPromotion', $params);
 
     }

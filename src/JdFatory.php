@@ -8,6 +8,7 @@
 
 namespace JdMediaSdk;
 
+use JdMediaSdk\Api\Coupon;
 use JdMediaSdk\Api\Good;
 use JdMediaSdk\Api\Link;
 use JdMediaSdk\Api\Promotion;
@@ -16,6 +17,7 @@ use JdMediaSdk\Api\Promotion;
  * @property Good good  查询商品API
  * @property Promotion promotion  PID&推广位API
  * @property Link link 获取推广链接API
+ * @property Coupon coupon 优惠券API
  */
 class JdFatory
 {
