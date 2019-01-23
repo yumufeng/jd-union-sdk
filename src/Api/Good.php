@@ -34,7 +34,27 @@ class Good extends JdGateWay
      */
     public function seckill(array $params)
     {
-        return $this->send('querySeckillGoods' , $params);
+        $this->setIsAuth(true);
+        return $this->send('querySeckillGoods', $params);
+    }
+
+    /**
+     * @api 学生价商品查询接口【申请】
+     * @link https://union.jd.com/openplatform/api/666
+     * @param array $param
+     * @return bool|string
+     */
+    public function stuprice(array $param)
+    {
+        //TODO
+        if (!isset($param['pageIndex'])) {
+            $params['pageIndex'] = 1;
+        }
+        $params = [
+            'goodsReq' => $param
+        ];
+
+        return $this->send('jd.union.open.goods.stuprice.query', $params);
     }
 
     /**
