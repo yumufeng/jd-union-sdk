@@ -44,7 +44,7 @@ if ($result == false ) {
 | --------   | ---- |
 | jd.union.open.order.query (订单查询接口)     | \$client->promotion->order() |
 | jd.union.open.goods.promotiongoodsinfo.query (获取推广商品信息接口)     | \$client->good->info() |
-| jd.union.open.category.goods.get(商品类目查询)     | \$client->good->info() |
+| jd.union.open.category.goods.get(商品类目查询)     | \$client->good->category() |
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 
