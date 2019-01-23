@@ -8,8 +8,6 @@
 
 namespace JdMediaSdk\Tools;
 
-
-use function JdMediaSdk\curl_get;
 use JdMediaSdk\JdFatory;
 
 class JdGateWay
