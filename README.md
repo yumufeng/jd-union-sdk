@@ -1,5 +1,7 @@
 **京东联盟SDK**
 
+京东联盟SDK，基于新版的
+
 PHP =>7.0
 
 `composer require yumufeng/jd-union-sdk`
@@ -13,11 +15,11 @@ PHP =>7.0
 
 ```php
 $config = [
-    'appkey' => '',
-    'appSecret' => '',
-    'unionId' => '',
-    'positionId' => '',
-    'siteId' => ''
+    'appkey' => '', // AppId
+    'appSecret' => '', // 密钥
+    'unionId' => '', // 联盟ID
+    'positionId' => '', // 推广位ID
+    'siteId' => '' // 网站ID
 ];
 $client = new \JdMediaSdk\JdFatory($config);
 
@@ -28,7 +30,7 @@ $result = $client->promotion->order([
     'time' => "201810032339"
 ]);
 
-if (!$result) {
+if ($result == false ) {
     var_dump($client->getError());
 }
 
