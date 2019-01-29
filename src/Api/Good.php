@@ -118,7 +118,23 @@ class Good extends JdGateWay
     /**
      * @api 京粉精选商品查询接口
      * @line https://union.jd.com/openplatform/api/739
-     * @param int $eliteId 频道id：1-好券商品,2-京粉APP-jingdong.大咖推荐,3-小程序-jingdong.好券商品,4-京粉APP-jingdong.主题街1-jingdong.服装运动,5-京粉APP-jingdong.主题街2-jingdong.精选家电,6-京粉APP-jingdong.主题街3-jingdong.超市,7-京粉APP-jingdong.主题街4-jingdong.居家生活,10-9.9专区,11-品牌好货-jingdong.潮流范儿,12-品牌好货-jingdong.精致生活,13-品牌好货-jingdong.数码先锋,14-品牌好货-jingdong.品质家电,15-京仓配送,16-公众号-jingdong.好券商品,17-公众号-jingdong.9.9,18-公众号-jingdong.京仓京配
+     * @param int $eliteId
+     * 频道id：1-好券商品；
+     *        2-京粉APP.大咖推荐；
+     *        3-小程序-好券商品；
+     *        4-京粉APP-.主题街.服装运动；
+     *        5-京粉APP-主题街.精选家电；
+     *        6-京粉APP-主题街.超市；
+     *        7-京粉APP-主题街.居家生活；
+     *        10-9.9专区；
+     *        11-品牌好货.潮流范儿；
+     *        12-品牌好货.精致生活；
+     *        13-品牌好货.数码先锋；
+     *        14-品牌好货.品质家电；
+     *        15-京仓配送；
+     *        16-公众号.好券商品；
+     *        17-公众号.9.9；
+     *        18-公众号-京仓京配
      * @param int $pageIndex 页码
      * @param int $pageSize 每页数量, 最大50
      * @param string $sortName 排序字段(price：单价, commissionShare：佣金比例, commission：佣金， inOrderCount30DaysSku：sku维度30天引单量，comments：评论数，goodComments：好评数
