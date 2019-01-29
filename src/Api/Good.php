@@ -79,6 +79,24 @@ class Good extends JdGateWay
     }
 
     /**
+     * @api 获取详情的图片集合
+     * @param $skuId
+     * @param bool $raw
+     * @return |null |null array
+     */
+    public function detail($skuId, $raw = false)
+    {
+        $urls = "https://cd.jd.com/description/channel?skuId={$skuId}&mainSkuId={$skuId}";
+
+        $content = curl_get($urls);
+        $content = json_decode($content, true);
+        if ($raw == true) {
+            return $content['content'];
+        }
+        return get_images_from_html($content['content']);
+    }
+
+    /**
      * @api  商品类目查询
      * @line https://union.jd.com/#/openplatform/api/693
      * @param $parentId

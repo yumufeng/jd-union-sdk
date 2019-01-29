@@ -48,7 +48,7 @@ if ($result == false ) {
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
-
+| jd.union.open.goods.detail.query (京东商品详情接口)     | \$client->good->detail() |
 
 以下**高级权限**传参参考：https://www.coderdoc.cn/jdapiv2?page_id=63
 
