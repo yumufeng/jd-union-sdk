@@ -120,7 +120,7 @@ class Good extends JdGateWay
             ]
         ];
 
-        $result = $this->send('jd.union.open.goods.jingfen.query', $params);
+        $result = $this->send('jd.union.open.goods.jingfen.query', $params, true);
 
         return $result;
     }
