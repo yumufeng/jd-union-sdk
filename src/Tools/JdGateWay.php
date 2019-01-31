@@ -62,7 +62,8 @@ class JdGateWay
 
     protected function setError($message)
     {
-        return $this->jdFatory->setError($message);
+        $this->jdFatory->setError($message);
+        return false;
     }
 
     /**
@@ -140,6 +141,12 @@ class JdGateWay
     private function parseReps($result, $raw = false)
     {
         $decodeObject = json_decode($result, true);
+        if (is_string($decodeObject)) {
+            return $this->setError($decodeObject);
+        }
+        if (is_null($decodeObject)) {
+            return $this->setError("Api返回结果为空");
+        }
         if ($this->is_auth === true) {
             if ($raw == true) {
                 return $decodeObject;
@@ -152,13 +159,11 @@ class JdGateWay
         } else {
             $nowLists = current($decodeObject);
             if ($nowLists['code'] != 0) {
-                $this->setError(isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息');
-                return false;
+                return $this->setError(isset($nowLists['msg']) ? $nowLists['msg'] : '错误信息');
             }
             $finally = json_decode($nowLists['result'], true);
             if ($finally['code'] != 200) {
-                $this->setError($finally['message']);
-                return false;
+                return $this->setError($finally['message']);
             }
             if ($raw == true) {
                 return $finally;

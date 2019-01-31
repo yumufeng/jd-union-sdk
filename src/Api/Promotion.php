@@ -68,9 +68,13 @@ class Promotion extends JdGateWay
             'key' => $key,
             'unionType' => $unionType,
             'type' => $type,
-            'spaceNameList' => implode(',', $spaceNameList),
-            'siteId' => $this->siteId,
+            'spaceNameList' => implode(',', $spaceNameList)
         ];
+        if ($type == 1) {
+            $param = array_merge($param, [
+                'siteId' => $this->siteId
+            ]);
+        }
         return $this->send('createPosition', $param);
 
     }
