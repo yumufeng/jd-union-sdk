@@ -102,7 +102,11 @@ class Good extends JdGateWay
             $json = json_decode($detail, true);
             $detail = $json['content'];
         }
-        $detail = get_images_from_html($detail);
+        $content_detail = $detail;
+        $detail = get_images_from_html($content_detail);
+        if (empty($detail)) {
+            $detail = get_images_from_css($content_detail);
+        }
         return $detail;
     }
 

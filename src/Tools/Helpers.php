@@ -41,3 +41,17 @@ function get_images_from_html($content)
     }
     return null;
 }
+
+/**
+ * 从css中获取图片
+ * @param $content
+ * @return |null
+ */
+function get_images_from_css($content)
+{
+    preg_match_all("/background-image:url\((.*)\)/", $content, $match);
+    if (!empty($match[1])) {
+        return $match[1];
+    }
+    return null;
+}
