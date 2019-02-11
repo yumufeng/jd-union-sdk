@@ -86,14 +86,8 @@ class Good extends JdGateWay
      */
     public function detail($skuId, $raw = false)
     {
-        $urls = "https://cd.jd.com/description/channel?skuId={$skuId}&mainSkuId={$skuId}";
-
-        $content = curl_get($urls);
-        $content = json_decode($content, true);
-        if ($raw == true) {
-            return $content['content'];
-        }
-        return get_images_from_html($content['content']);
+        $this->setIsAuth(true);
+        return $this->send('getGoodsDetail', ['id' => $skuId]);
     }
 
     /**

@@ -32,10 +32,11 @@ function curl_get($url)
  * @return null
  *  从HTML文本中提取所有图片
  */
-function get_images_from_html($content){
-    $pattern="/<img.*?data-lazyload=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
-    preg_match_all($pattern,htmlspecialchars_decode($content),$match);
-    if(!empty($match[1])){
+function get_images_from_html($content)
+{
+    $pattern = "/<img.*?data-lazyload=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
+    preg_match_all($pattern, htmlspecialchars_decode($content), $match);
+    if (!empty($match[1])) {
         return $match[1];
     }
     return null;
