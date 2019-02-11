@@ -82,12 +82,28 @@ class Good extends JdGateWay
      * @api 获取详情的图片集合
      * @param $skuId
      * @param bool $raw
-     * @return |null |null array
+     * @return bool|mixed|string|null |null |null array
      */
     public function detail($skuId, $raw = false)
     {
-        $this->setIsAuth(true);
-        return $this->send('getGoodsDetail', ['id' => $skuId]);
+        $link = "https://item.jd.com/{$skuId}.html";
+        $html = curl_get($link);
+        $html_one = explode("desc: '", $html, 2);
+        if (!isset($html_one[1]) || empty($html_one[1])) {
+            return null;
+        }
+        $html_two = explode("',", $html_one[1], 2);
+        $imgLink = 'http:' . $html_two[0];
+        $detail = curl_get($imgLink);
+        if (strpos($detail, 'showdesc') !== false) {
+            $detail = str_replace(['showdesc(', '\\'], '', $detail);
+            $detail = rtrim($detail, ')');
+        } else {
+            $json = json_decode($detail, true);
+            $detail = $json['content'];
+        }
+        $detail = get_images_from_html($detail);
+        return $detail;
     }
 
     /**

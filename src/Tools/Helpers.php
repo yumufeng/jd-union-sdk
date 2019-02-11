@@ -35,7 +35,7 @@ function curl_get($url)
 function get_images_from_html($content)
 {
     $pattern = "/<img.*?data-lazyload=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
-    preg_match_all($pattern, htmlspecialchars_decode($content), $match);
+    preg_match_all($pattern, $content, $match);
     if (!empty($match[1])) {
         return $match[1];
     }
