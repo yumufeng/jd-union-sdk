@@ -19,6 +19,7 @@ class Link extends JdGateWay
      * @line https://union.jd.com/#/openplatform/api/691
      * @param array $params
      * @return bool|string
+     * @throws \Exception
      */
     public function get($param)
     {
@@ -47,10 +48,10 @@ class Link extends JdGateWay
      * @param $url
      * @param string $conponUrl
      * @return bool|string
+     * @throws \Exception
      */
     public function byUnionId($url, $conponUrl = '')
     {
-        $this->setIsAuth(true);
         if (!isset($params['unionId'])) {
             $params['unionId'] = $this->unionId;
         }

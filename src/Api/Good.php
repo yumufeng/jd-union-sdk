@@ -14,31 +14,23 @@ use JdMediaSdk\Tools\JdGateWay;
 class Good extends JdGateWay
 {
     /**
-     * @api 关键词商品查询接口【申请】 https://union.jd.com/#/openplatform/api/628
-     * @line https://www.coderdoc.cn/jdapiv2?page_id=63
+     * @api 关键词商品查询接口【申请】
+     * @line https://union.jd.com/#/openplatform/api/628
      * @param array $params
      * @return bool|string
+     * @throws \Exception
      */
+
     public function query(array $params)
     {
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
         }
-        $this->setIsAuth(true);
-        $result = $this->send('queryGoods', $params);
+        $sends = [
+            'goodsReqDTO' => $params
+        ];
+        $result = $this->send('jd.union.open.goods.query', $sends);
         return $result;
-    }
-
-    /**
-     * @api 秒杀商品查询接口【申请】
-     * @line https://union.jd.com/openplatform/api/667
-     * @param array $params
-     * @return bool|string
-     */
-    public function seckill(array $params)
-    {
-        $this->setIsAuth(true);
-        return $this->send('querySeckillGoods', $params);
     }
 
     /**
@@ -46,6 +38,7 @@ class Good extends JdGateWay
      * @link https://union.jd.com/openplatform/api/666
      * @param array $param
      * @return bool|string
+     * @throws \Exception
      */
     public function stuprice(array $param)
     {
@@ -61,10 +54,26 @@ class Good extends JdGateWay
     }
 
     /**
+     * @api 秒杀商品查询接口【申请】
+     * @line https://union.jd.com/openplatform/api/667
+     * @param array $params
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function seckill(array $params)
+    {
+        $params = [
+            'goodsReq' => $params
+        ];
+        return $this->send('jd.union.open.goods.seckill.query', $params);
+    }
+
+    /**
      * @api 获取推广商品信息接口
      * @line https://union.jd.com/#/openplatform/api/563
      * @param $skuIds
      * @return bool|string
+     * @throws \Exception
      */
     public function info($skuIds)
     {
@@ -83,6 +92,7 @@ class Good extends JdGateWay
      * @param $skuId
      * @param bool $raw
      * @return bool|mixed|string|null |null |null array
+     * @throws \Exception
      */
     public function detail($skuId, $raw = false)
     {
@@ -116,6 +126,7 @@ class Good extends JdGateWay
      * @param $parentId
      * @param $grade
      * @return bool|string
+     * @throws \Exception
      */
     public function category($parentId = 0, $grade = 0)
     {
@@ -154,6 +165,7 @@ class Good extends JdGateWay
      * @param string $sortName 排序字段(price：单价, commissionShare：佣金比例, commission：佣金， inOrderCount30DaysSku：sku维度30天引单量，comments：评论数，goodComments：好评数
      * @param string $sort 默认降序  asc,desc升降序
      * @return bool|string
+     * @throws \Exception
      */
     public function jingfen($eliteId = 1, $pageIndex = 1, $pageSize = 50, $sortName = 'price', $sort = 'desc')
     {

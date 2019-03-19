@@ -17,26 +17,27 @@ PHP =>7.0
 $config = [
     'appkey' => '', // AppId
     'appSecret' => '', // 密钥
+    'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
+    'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
     'unionId' => '', // 联盟ID
     'positionId' => '', // 推广位ID
     'siteId' => '' // 网站ID
 ];
 $client = new \JdMediaSdk\JdFatory($config);
-
-$result = $client->promotion->order([
-    'pageNo' => 1,
-    'pageSize' => 500,
-    'type' => 1,
-    'time' => "201810032339"
-]);
-
+$result = $client->apith->querySeckillGoods();
 if ($result == false ) {
     var_dump($client->getError());
 }
 
+var_dump($result);
+
 ```
 
+
 ## 说明文档
+
+
+### 1.官方版本
 
 以下**基础权限**传参参考：https://union.jd.com/#/openplatform/api
 
@@ -50,9 +51,7 @@ if ($result == false ) {
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
 | jd.union.open.goods.detail.query (京东商品详情接口)     | \$client->good->detail() |
 
-以下**高级权限**传参参考：https://www.coderdoc.cn/jdapiv2?page_id=63
-
-| 接口名称 [**高级**]   | 对应方法  |
+| 接口名称 [**高级**] **官方版**   | 对应方法  |
 | --------   | ---- |
 |jd.union.open.coupon.query(优惠券领取情况查询接口【**申请**】)   | \$client->coupon->query()   |
 |jd.union.open.goods.seckill.query(秒杀商品查询接口【**申请**】)   | \$client->good->seckill()   |
@@ -61,6 +60,25 @@ if ($result == false ) {
 |jd.union.open.coupon.importation(优惠券导入【**申请**】)   | \$client->coupon->importation()   |
 |jd.union.open.position.query(查询推广位【**申请**】)   | \$client->promotion->queryPosition()   |
 |jd.union.open.position.create(创建推广位【**申请**】)   | \$client->promotion->createPosition()   |
+
+
+
+
+
+### 2.Apith版
+
+
+没有高级权限的，可以点击 https://apith.cn/invite/4SO80R60 用github登录，免费申请。
+
+| 接口名称 [**高级**]  **Apith版** | 对应方法  |
+| --------   | ---- |
+|jd.union.open.coupon.query(优惠券领取情况查询接口【**申请**】)   | \$client->apith->queryCoupon()   |
+|jd.union.open.goods.seckill.query(秒杀商品查询接口【**申请**】)   | \$client->apith->querySeckillGoods()   |
+|jd.union.open.goods.query(关键词商品查询接口【**申请**】)   | \$client->apith->queryGoods()   |
+|jd.union.open.promotion.byunionid.get(通过unionId获取推广链接【**申请**】)   | \$client->apith->getByUnionidPromotion()   |
+|jd.union.open.position.query(查询推广位【**申请**】)   | \$client->apith->queryPosition()   |
+|jd.union.open.position.create(创建推广位【**申请**】)   | \$client->apith->createPosition()   |
+
 
 
 ## License

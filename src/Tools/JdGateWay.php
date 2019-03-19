@@ -12,12 +12,22 @@ use JdMediaSdk\JdFatory;
 
 class JdGateWay
 {
+    /**
+     * @title 京东联盟官方配置
+     * @var mixed
+     */
     protected $appkey;
     protected $appSecret;
     protected $siteId;
     protected $unionId;
     protected $positionId;
     protected $pid;
+    /**
+     * @api https://apith.cn/dashboard/key 获取地址
+     * @var mixed|string
+     */
+    protected $apithId;
+    protected $apithKey;
     /**
      * 是否需要申请权限
      */
@@ -27,18 +37,25 @@ class JdGateWay
     // 需要access_token
     const NEED_ACCESS_TOKEN = false;
     const URL = 'https://router.jd.com/api?';
-    const AUTH_URL = 'https://jd.open.apith.cn/unionv2/';
+    const AUTH_URL = 'https://jd.vip.apith.cn/unionv2/';
 
     /**
      * @var JdFatory
      */
     protected $jdFatory;
 
+    /**
+     * JdGateWay constructor.
+     * @param array $config
+     * @param JdFatory $jdFatory
+     */
     public function __construct(array $config, JdFatory $jdFatory)
     {
 
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
+        $this->apithId = isset($config['apithId']) ? $config['apithId'] : '';
+        $this->apithKey = isset($config['apithKey']) ? $config['apithKey'] : '';
         $this->siteId = $config['siteId'];
         $this->unionId = $config['unionId'];
         $this->positionId = $config['positionId'];
@@ -49,15 +66,6 @@ class JdGateWay
     public function setAccessToken(string $accessToken)
     {
         $this->access_token = $accessToken;
-    }
-
-    /**
-     * 是否需要申请权限
-     * @param  $is_auth
-     */
-    protected function setIsAuth($is_auth)
-    {
-        $this->is_auth = $is_auth;
     }
 
     protected function setError($message)
@@ -88,6 +96,12 @@ class JdGateWay
         return $signature;
     }
 
+    /**
+     * jdUnion官方签名
+     * @param $method
+     * @param array $specialParameter
+     * @return string
+     */
     protected function setParameter($method, array $specialParameter)
     {
         $time = date('Y-m-d H:i:s', time());
@@ -113,21 +127,48 @@ class JdGateWay
     }
 
     /**
+     * VIp用户签名
+     */
+
+    protected function setVipParameter($url)
+    {
+        $urls = \parse_url($url);
+        $dateTime = \gmdate("D, d M Y H:i:s T");
+        $SecretId = $this->apithId;
+        $SecretKey = $this->apithKey;
+        //参与签名计算的的两个参数(date和source)
+        $srcStr = "date: " . $dateTime . "\n" . "source: " . $urls['host'];
+        $Authen = 'hmac id="' . $SecretId . '", algorithm="hmac-sha1", headers="date source", signature="';
+        $signStr = base64_encode(hash_hmac('sha1', $srcStr, $SecretKey, true));
+        $Authen = $Authen . $signStr . "\"";
+        $headers = array(
+            'Accept:text/html, */*; q=0.01',
+            'Source: ' . $urls['host'],
+            'Date: ' . $dateTime,
+            'Authorization: ' . $Authen
+        );
+        return $headers;
+    }
+
+    /**
      * 发送参数请求
      * @param $method
      * @param $specialParameter
      * @param bool $raw
      * @return bool|string
+     * @throws \Exception
      */
     protected function send($method, array $specialParameter, $raw = false)
     {
+        $header = [];
         if ($this->is_auth === true) {
             $url = self::AUTH_URL . $method . '?' . http_build_query($specialParameter);
+            $header = self::setVipParameter($url);
         } else {
             $str = self::setParameter($method, $specialParameter);
             $url = self::URL . $str;
         }
-        $result = curl_get($url);
+        $result = curl_get($url, $header);
         return $this->parseReps($result, $raw);
 
     }

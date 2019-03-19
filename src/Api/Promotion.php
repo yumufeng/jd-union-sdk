@@ -18,6 +18,7 @@ class Promotion extends JdGateWay
      * @line https://union.jd.com/#/openplatform/api/650
      * @param array $params
      * @return bool|string
+     * @throws \Exception
      */
 
     public function order(array $params)
@@ -41,14 +42,43 @@ class Promotion extends JdGateWay
      * @line https://union.jd.com/#/openplatform/api/646
      * @param array $params
      * @return bool|string
+     * @throws \Exception
      */
     public function pid(array $params)
     {
+        if (!isset($params['unionId'])) {
+            $params['unionId'] = $this->unionId;
+        }
+        if (!isset($params['promotionType'])) {
+            $params['promotionType'] = 2;
+        }
         $reqParams = [
             'pidReq' => $params,
         ];
         $result = $this->send('jd.union.open.user.pid.get', $reqParams);
         return $result;
+    }
+
+    /**
+     * @api 查询推广位【申请】
+     * @link https://union.jd.com/openplatform/api
+     * @param string $key 目标联盟ID对应的授权key，在联盟推广管理页领取
+     * @param int $pageIndex 页码，上限10000
+     * @param int $pageSize 每页条数，上限100
+     * @param int $unionType 联盟推广位类型，1：cps推广位 2：cpc推广位
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function queryPosition(string $key, $pageIndex = 1, $pageSize = 100, $unionType = 1)
+    {
+        $param['positionReq'] = [
+            'unionId' => $this->unionId,
+            'key' => $key,
+            'unionType' => $unionType,
+            'pageIndex' => $pageIndex,
+            'pageSize' => $pageSize
+        ];
+        return $this->send('jd.union.open.position.query', $param);
     }
 
     /**
@@ -59,10 +89,10 @@ class Promotion extends JdGateWay
      * @param int $unionType 1：cps推广位 2：cpc推广位
      * @param int $type 站点类型 1网站推广位2.APP推广位3.社交媒体推广位4.聊天工具推广位5.二维码推广
      * @return bool|string
+     * @throws \Exception
      */
-    public function createPosition(array $spaceNameList, string $key, $unionType = 1, $type = 4)
+    public function createPosition(array $spaceNameList, string $key, $unionType = 1, $type = 1)
     {
-        $this->setIsAuth(true);
         $param = [
             'unionId' => $this->unionId,
             'key' => $key,
@@ -75,29 +105,10 @@ class Promotion extends JdGateWay
                 'siteId' => $this->siteId
             ]);
         }
-        return $this->send('createPosition', $param);
-
-    }
-
-    /**
-     * @api 查询推广位【申请】
-     * @link https://union.jd.com/openplatform/api
-     * @param string $key 目标联盟ID对应的授权key，在联盟推广管理页领取
-     * @param int $pageIndex 页码，上限10000
-     * @param int $pageSize 每页条数，上限100
-     * @param int $unionType 联盟推广位类型，1：cps推广位 2：cpc推广位
-     * @return bool|string
-     */
-    public function queryPosition(string $key, $pageIndex = 1, $pageSize = 100, $unionType = 1)
-    {
-        $this->setIsAuth(true);
-        $param = [
-            'unionId' => $this->unionId,
-            'key' => $key,
-            'unionType' => $unionType,
-            'pageIndex' => $pageIndex,
-            'pageSize' => $pageSize
+        $params = [
+            'positionReq' => $param
         ];
-        return $this->send('queryPosition', $param);
+        return $this->send('createPosition', $params);
+
     }
 }
