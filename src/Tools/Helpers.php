@@ -38,10 +38,9 @@ function curl_get($url, $header = [])
         $urlsInfo = \parse_url($url);
         $queryUrl = $urlsInfo['path'] . '?' . $urlsInfo['query'];
         $domain = $urlsInfo['host'];
-        $chan = new \Chan(1);
         $port = $urlsInfo['scheme'] = 'https' ? 443 : 80;
+        $chan = new \Chan(1);
         go(function () use ($chan, $domain, $queryUrl, $header, $port) {
-            var_dump($header);
             $cli = new \Swoole\Coroutine\Http\Client($domain, $port, $port == 443 ? true : false);
             $cli->setHeaders($header);
             $cli->set(['timeout' => 15]);
