@@ -6,8 +6,13 @@ PHP =>7.0
 
 `composer require yumufeng/jd-union-sdk`
 
+如果是在swoole 扩展下使用，支持协程并发，需要在编译swoole扩展的时候开启，系统会自动判断是否采用swoole
+
+```./configure --enable-coroutine --enable-openssl```
 
 由于自己没有高级接口，所以高级权限和基础权限封装是分开成两部分的。
+
+没有获取高级权限的，可以免费申请Apith的使用：https://apith.cn/invite/4SO80R60 （用github登录即可）
 
 ### 使用示例
 
@@ -37,7 +42,7 @@ var_dump($result);
 
 ### 1.官方版本
 
-以下**基础权限**传参参考：https://union.jd.com/#/openplatform/api
+以下**官方版本**传参参考：https://union.jd.com/#/openplatform/api
 
 | 接口名称 [**基础**]   | 对应方法  |
 | --------   | ---- |
@@ -66,7 +71,7 @@ var_dump($result);
 ### 2.Apith版
 
 
-没有**官方高级权限**的，可以点击 https://apith.cn/invite/4SO80R60 用github登录，免费申请。
+没有**Apith高级权限**的，可以点击 https://apith.cn/invite/4SO80R60 用github登录，免费申请。
 
 | 接口名称 [**高级**]  **Apith版** | 对应方法  |
 | --------   | ---- |

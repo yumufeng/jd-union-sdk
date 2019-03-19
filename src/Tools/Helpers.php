@@ -38,35 +38,18 @@ function curl_get($url, $header = [])
         $urlsInfo = \parse_url($url);
         $queryUrl = $urlsInfo['path'] . '?' . $urlsInfo['query'];
         $domain = $urlsInfo['host'];
-        $chan = new Chan(1);
-        if ($urlsInfo['scheme'] == 'https') {
-            go(function () use ($chan, $domain, $queryUrl, $header) {
-                $cli = new Swoole\Coroutine\Http2\Client($domain, 443, true);
-                $cli->set([
-                    'timeout' => 15,
-                    'ssl_host_name' => $domain
-                ]);
-                $cli->connect();
-                $req = new \swoole_http2_request();
-                $req->method = 'GET';
-                $req->path = $queryUrl;
-                $req->headers = $header;
-                $cli->send($req);
-                $output = $cli->recv();
-                $chan->push($output);
-                $cli->close();
-            });
-        } else {
-            go(function () use ($chan, $domain, $queryUrl, $header) {
-                $cli = new Swoole\Coroutine\Http\Client($domain, 80);
-                $cli->setHeaders($header);
-                $cli->set(['timeout' => 15]);
-                $cli->get($queryUrl);
-                $output = $cli->body;
-                $chan->push($output);
-                $cli->close();
-            });
-        }
+        $chan = new \Chan(1);
+        $port = $urlsInfo['scheme'] = 'https' ? 443 : 80;
+        go(function () use ($chan, $domain, $queryUrl, $header, $port) {
+            var_dump($header);
+            $cli = new \Swoole\Coroutine\Http\Client($domain, $port, $port == 443 ? true : false);
+            $cli->setHeaders($header);
+            $cli->set(['timeout' => 15]);
+            $cli->get($queryUrl);
+            $output = $cli->body;
+            $chan->push($output);
+            $cli->close();
+        });
         $output = $chan->pop();
     }
     return $output;

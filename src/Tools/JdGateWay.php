@@ -141,12 +141,21 @@ class JdGateWay
         $Authen = 'hmac id="' . $SecretId . '", algorithm="hmac-sha1", headers="date source", signature="';
         $signStr = base64_encode(hash_hmac('sha1', $srcStr, $SecretKey, true));
         $Authen = $Authen . $signStr . "\"";
-        $headers = array(
-            'Accept:text/html, */*; q=0.01',
-            'Source: ' . $urls['host'],
-            'Date: ' . $dateTime,
-            'Authorization: ' . $Authen
-        );
+        if (!extension_loaded('swoole') || PHP_SAPI != 'cli') {
+            $headers = [
+                'Accept:text/html, */*; q=0.01',
+                'Source: ' . $urls['host'],
+                'Date: ' . $dateTime,
+                'Authorization: ' . $Authen
+            ];
+        } else {
+            $headers = [
+                'Accept' => 'text/html, */*; q=0.01',
+                'Source' => $urls['host'],
+                'Date' => $dateTime,
+                'Authorization' => $Authen
+            ];
+        }
         return $headers;
     }
 
