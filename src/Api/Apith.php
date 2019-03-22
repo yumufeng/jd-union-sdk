@@ -133,10 +133,11 @@ class Apith extends JdGateWay
      * @line https://union.jd.com/openplatform/api/631
      * @param $url
      * @param string $conponUrl
+     * @param array $params 传入的配置参数
      * @return bool|string
      * @throws \Exception
      */
-    public function getByUnionidPromotion($url, $conponUrl = '')
+    public function getByUnionidPromotion($url, $conponUrl = '', $params = [])
     {
         if (!isset($params['unionId'])) {
             $params['unionId'] = $this->unionId;

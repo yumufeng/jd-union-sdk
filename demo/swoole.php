@@ -45,7 +45,7 @@ class  swooleDemo
         ];
 
         $client = new \JdMediaSdk\JdFatory($config);
-        $imageList = $client->apith->querySeckillGoods();
+        $imageList = $client->good->info('5983028');
         var_dump($imageList);
         $response->end('index');
     }

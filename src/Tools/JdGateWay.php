@@ -32,10 +32,6 @@ class JdGateWay
      * 是否需要申请权限
      */
     protected $is_auth = false;
-
-    protected $access_token;
-    // 需要access_token
-    const NEED_ACCESS_TOKEN = false;
     const URL = 'https://router.jd.com/api?';
     const AUTH_URL = 'https://jd.vip.apith.cn/unionv2/';
 
@@ -43,6 +39,12 @@ class JdGateWay
      * @var JdFatory
      */
     protected $jdFatory;
+
+    /**
+     * 是否强制使用curl，不自动适配swoole协程客户端
+     * @var bool
+     */
+    private $isCurl = false;
 
     /**
      * JdGateWay constructor.
@@ -61,11 +63,7 @@ class JdGateWay
         $this->positionId = $config['positionId'];
         $this->pid = $config['unionId'] . '_' . $config['siteId'] . '_' . $config['positionId'];
         $this->jdFatory = $jdFatory;
-    }
-
-    public function setAccessToken(string $accessToken)
-    {
-        $this->access_token = $accessToken;
+        $this->isCurl = isset($config['isCurl']) && ($config['isCurl'] == true) ? true : false;
     }
 
     protected function setError($message)
@@ -106,7 +104,6 @@ class JdGateWay
     {
         $time = date('Y-m-d H:i:s', time());
         $publicParameter = array(
-            'access_token' => $this->access_token,
             'app_key' => $this->appkey,
             'format' => 'json',
             'v' => '1.0',
@@ -141,20 +138,22 @@ class JdGateWay
         $Authen = 'hmac id="' . $SecretId . '", algorithm="hmac-sha1", headers="date source", signature="';
         $signStr = base64_encode(hash_hmac('sha1', $srcStr, $SecretKey, true));
         $Authen = $Authen . $signStr . "\"";
-        if (!extension_loaded('swoole') || PHP_SAPI != 'cli') {
-            $headers = [
-                'Accept:text/html, */*; q=0.01',
-                'Source: ' . $urls['host'],
-                'Date: ' . $dateTime,
-                'Authorization: ' . $Authen
-            ];
-        } else {
-            $headers = [
-                'Accept' => 'text/html, */*; q=0.01',
-                'Source' => $urls['host'],
-                'Date' => $dateTime,
-                'Authorization' => $Authen
-            ];
+        // 默认curl的 header
+        $headers = [
+            'Accept:text/html, */*; q=0.01',
+            'Source: ' . $urls['host'],
+            'Date: ' . $dateTime,
+            'Authorization: ' . $Authen
+        ];
+        if (PHP_SAPI == 'cli') {
+            if (extension_loaded('swoole') && $this->isCurl == false) {
+                $headers = [
+                    'Accept' => 'text/html, */*; q=0.01',
+                    'Source' => $urls['host'],
+                    'Date' => $dateTime,
+                    'Authorization' => $Authen
+                ];
+            }
         }
         return $headers;
     }
@@ -177,7 +176,7 @@ class JdGateWay
             $str = self::setParameter($method, $specialParameter);
             $url = self::URL . $str;
         }
-        $result = curl_get($url, $header);
+        $result = $this->isCurl == true ? fpm_curl_get($url, $header) : curl_get($url, $header);
         return $this->parseReps($result, $raw);
 
     }

@@ -44,20 +44,10 @@ class JdFatory
                 return false;
             }
             $new = new $classname($this->config, $this);
-            if ($new::NEED_ACCESS_TOKEN == true) {
-                $new->setAccessToken($this->getAccessToken());
-            }
             return $new;
         } catch (\Exception $e) {
             throw new \Exception('api undefined');
         }
-    }
-
-    /**
-     * 获取accessToken
-     */
-    private function getAccessToken()
-    {
     }
 
     public function setError($message)

@@ -20,11 +20,12 @@ PHP =>7.0
 $config = [
     'appkey' => '', // AppId
     'appSecret' => '', // 密钥
-    'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
-    'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
     'unionId' => '', // 联盟ID
     'positionId' => '', // 推广位ID
-    'siteId' => '' // 网站ID
+    'siteId' => '' // 网站ID,
+    'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
+    'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
+    'isCurl' => true // 是否强制使用curl 不自动适配swoole 协程客户端 可选参数，不启动自动适配swoole 协程
 ];
 $client = new \JdMediaSdk\JdFatory($config);
 $result = $client->apith->querySeckillGoods();
