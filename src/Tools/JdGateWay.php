@@ -176,7 +176,7 @@ class JdGateWay
             $str = self::setParameter($method, $specialParameter);
             $url = self::URL . $str;
         }
-        $result = $this->isCurl == true ? fpm_curl_get($url, $header) : curl_get($url, $header);
+        $result = $this->isCurl == true ? Helpers::fpm_curl_get($url, $header) : Helpers::curl_get($url, $header);
         return $this->parseReps($result, $raw);
 
     }

@@ -15,10 +15,7 @@
     ],
     "psr-4": {
       "JdMediaSdk\\": "src"
-    },
-    "files": [
-      "src/Tools/Helpers.php"
-    ]
+    }
   },
   "repositories": {
     "packagist": {

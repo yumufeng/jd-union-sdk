@@ -53,8 +53,8 @@ var_dump($result);
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
-| jd.union.open.goods.detail.query (京东商品详情图片集合接口)     | \$client->good->detail() |
-
+| (京东商品详情图片集合接口)     | \$client->good->detailImgLists() |
+| (京东主图图片集合接口)     | \$client->good->goodImgLists() |
 | 接口名称 [**高级**] **官方版**   | 对应方法  |
 | --------   | ---- |
 |jd.union.open.coupon.query(优惠券领取情况查询接口【**申请**】)   | \$client->coupon->query()   |

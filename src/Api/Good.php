@@ -9,6 +9,7 @@
 namespace JdMediaSdk\Api;
 
 
+use JdMediaSdk\Tools\Helpers;
 use JdMediaSdk\Tools\JdGateWay;
 
 class Good extends JdGateWay
@@ -94,17 +95,17 @@ class Good extends JdGateWay
      * @return bool|mixed|string|null |null |null array
      * @throws \Exception
      */
-    public function detail($skuId, $raw = false)
+    public function detailImgLists($skuId, $raw = false)
     {
         $link = "https://item.jd.com/{$skuId}.html";
-        $html = curl_get($link);
+        $html = Helpers::curl_get($link);
         $html_one = explode("desc: '", $html, 2);
         if (!isset($html_one[1]) || empty($html_one[1])) {
             return null;
         }
         $html_two = explode("',", $html_one[1], 2);
         $imgLink = 'http:' . $html_two[0];
-        $detail = curl_get($imgLink);
+        $detail = Helpers::curl_get($imgLink);
         if (strpos($detail, 'showdesc') !== false) {
             $detail = str_replace(['showdesc(', '\\'], '', $detail);
             $detail = rtrim($detail, ')');
@@ -113,11 +114,28 @@ class Good extends JdGateWay
             $detail = $json['content'];
         }
         $content_detail = $detail;
-        $detail = get_images_from_html($content_detail);
+        $detail = Helpers::get_images_from_html($content_detail);
         if (empty($detail)) {
-            $detail = get_images_from_css($content_detail);
+            $detail = Helpers::get_images_from_css($content_detail);
         }
         return $detail;
+    }
+
+    /**
+     * 获取商品主图信息
+     * @param $skuId
+     * @return mixed
+     */
+    public function goodImgLists($skuId)
+    {
+        $link = "http://item.jd.com/{$skuId}.html";
+        $html = Helpers::curl_get($link);
+        preg_match("/imageList: \[(\S+)\]/", $html, $regs);
+        $imgList = explode(',', $regs[1]);
+        foreach ($imgList as &$item) {
+            $item = 'http://img14.360buyimg.com/n1/' . trim($item, '"');
+        }
+        return $imgList;
     }
 
     /**
