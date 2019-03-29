@@ -23,7 +23,10 @@ class Helpers
         } else {
             if (PHP_SAPI == 'cli') {
                 $urlsInfo = \parse_url($url);
-                $queryUrl = $urlsInfo['path'] . '?' . $urlsInfo['query'];
+                $queryUrl = $urlsInfo['path'];
+                if (isset($urlsInfo['query'])) {
+                    $queryUrl .= '?' . $urlsInfo['query'];
+                }
                 $domain = $urlsInfo['host'];
                 $port = $urlsInfo['scheme'] = 'https' ? 443 : 80;
                 $chan = new \Chan(1);
