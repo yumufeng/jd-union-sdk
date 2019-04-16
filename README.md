@@ -12,7 +12,7 @@ PHP =>7.0
 
 由于自己没有高级接口，所以高级权限和基础权限封装是分开成两部分的。
 
-没有获取高级权限的，可以免费申请Apith的使用：https://apith.cn/invite/4SO80R60 （用github登录即可）
+没有获取高级权限的，可以免费申请Apith的使用：https://apith.cn/invite/4SO80R60 （用github登录即可 ，28元/月，收费的哦）
 
 ### 使用示例
 
