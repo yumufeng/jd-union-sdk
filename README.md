@@ -55,6 +55,7 @@ var_dump($result);
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
 | (京东商品详情图片集合接口)     | \$client->good->detailImgLists() |
 | (京东主图图片集合接口)     | \$client->good->goodImgLists() |
+
 | 接口名称 [**高级**] **官方版**   | 对应方法  |
 | --------   | ---- |
 |jd.union.open.coupon.query(优惠券领取情况查询接口【**申请**】)   | \$client->coupon->query()   |
