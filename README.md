@@ -25,7 +25,7 @@ $config = [
     'siteId' => '' // 网站ID,
     'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
     'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
-    'isCurl' => true // 是否强制使用curl 不自动适配swoole 协程客户端 可选参数，不启动自动适配swoole 协程
+    'isCurl' => true // 设置为true的话，强制使用php的curl，为false的话，在swoole cli环境下自动启用 http协程客户端
 ];
 $client = new \JdMediaSdk\JdFatory($config);
 $result = $client->apith->querySeckillGoods();
