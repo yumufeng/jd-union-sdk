@@ -18,11 +18,12 @@ class Good extends JdGateWay
      * @api 关键词商品查询接口【申请】
      * @line https://union.jd.com/#/openplatform/api/628
      * @param array $params
+     * @param bool $raw
      * @return bool|string
      * @throws \Exception
      */
 
-    public function query(array $params)
+    public function query(array $params, $raw = false)
     {
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
@@ -30,7 +31,7 @@ class Good extends JdGateWay
         $sends = [
             'goodsReqDTO' => $params
         ];
-        $result = $this->send('jd.union.open.goods.query', $sends);
+        $result = $this->send('jd.union.open.goods.query', $sends, $raw);
         return $result;
     }
 
