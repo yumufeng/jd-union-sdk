@@ -8,11 +8,11 @@ PHP =>7.0
 
 如果是在swoole 扩展下使用，支持协程并发，需要在编译swoole扩展的时候开启，系统会自动判断是否采用swoole
 
-```./configure --enable-coroutine --enable-openssl```
+```./configure --enable-openssl```
 
 由于自己没有高级接口，所以高级权限和基础权限封装是分开成两部分的。
 
-没有获取高级权限的，可以免费申请Apith的使用：https://apith.cn/invite/4SO80R60 （用github登录即可 ，28元/月，收费的哦）
+没有获取高级权限的，可以申请Apith的高级接口：https://apith.cn/invite/4SO80R60 （用github登录即可 ，28元/月，收费的哦）
 
 ### 使用示例
 

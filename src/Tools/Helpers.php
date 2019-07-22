@@ -28,7 +28,11 @@ class Helpers
                     $queryUrl .= '?' . $urlsInfo['query'];
                 }
                 $domain = $urlsInfo['host'];
-                $port = $urlsInfo['scheme'] = 'https' ? 443 : 80;
+                if (isset($urlsInfo['port'])) {
+                    $port = $urlsInfo['port'];
+                } else {
+                    $port = ($urlsInfo['scheme'] == 'https' ? 443 : 80);
+                }
                 $chan = new \Chan(1);
                 go(function () use ($chan, $domain, $queryUrl, $header, $port) {
                     $cli = new \Swoole\Coroutine\Http\Client($domain, $port, $port == 443 ? true : false);
