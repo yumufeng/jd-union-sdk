@@ -73,7 +73,7 @@ var_dump($result);
 ### 2.Apith版
 
 
-没有**Apith高级权限**的，可以点击 https://apith.cn/invite/4SO80R60 用github登录，免费申请。
+没有**Apith高级权限**的，可以点击 https://apith.cn/invite/4SO80R60 （用github登录即可 ，28元/月，收费的哦）。
 
 | 接口名称 [**高级**]  **Apith版** | 对应方法  |
 | --------   | ---- |
