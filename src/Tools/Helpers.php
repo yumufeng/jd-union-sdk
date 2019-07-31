@@ -33,7 +33,7 @@ class Helpers
                 } else {
                     $port = ($urlsInfo['scheme'] == 'https' ? 443 : 80);
                 }
-                $chan = new \Chan(1);
+                $chan = new \Swoole\Coroutine\Channel(1);
                 go(function () use ($chan, $domain, $queryUrl, $header, $port) {
                     $cli = new \Swoole\Coroutine\Http\Client($domain, $port, $port == 443 ? true : false);
                     $cli->setHeaders($header);
