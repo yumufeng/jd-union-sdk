@@ -15,12 +15,12 @@ use JdMediaSdk\Tools\JdGateWay;
 class Good extends JdGateWay
 {
     /**
-     * @api 关键词商品查询接口【申请】
-     * @line https://union.jd.com/#/openplatform/api/628
      * @param array $params
      * @param bool $raw
      * @return bool|string
      * @throws \Exception
+     * @api 关键词商品查询接口【申请】
+     * @line https://union.jd.com/#/openplatform/api/628
      */
 
     public function query(array $params, $raw = false)
@@ -36,11 +36,11 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api 学生价商品查询接口【申请】
-     * @link https://union.jd.com/openplatform/api/666
      * @param array $param
      * @return bool|string
      * @throws \Exception
+     * @link https://union.jd.com/openplatform/api/666
+     * @api 学生价商品查询接口【申请】
      */
     public function stuprice(array $param)
     {
@@ -56,11 +56,11 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api 秒杀商品查询接口【申请】
-     * @line https://union.jd.com/openplatform/api/667
      * @param array $params
      * @return bool|string
      * @throws \Exception
+     * @api 秒杀商品查询接口【申请】
+     * @line https://union.jd.com/openplatform/api/667
      */
     public function seckill(array $params)
     {
@@ -71,11 +71,11 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api 获取推广商品信息接口
-     * @line https://union.jd.com/#/openplatform/api/563
      * @param $skuIds
      * @return bool|string
      * @throws \Exception
+     * @api 获取推广商品信息接口
+     * @line https://union.jd.com/#/openplatform/api/563
      */
     public function info($skuIds)
     {
@@ -90,11 +90,11 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api 获取详情的图片集合
      * @param $skuId
      * @param bool $raw
      * @return bool|mixed|string|null |null |null array
      * @throws \Exception
+     * @api 获取详情的图片集合
      */
     public function detailImgLists($skuId, $raw = false)
     {
@@ -140,12 +140,12 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api  商品类目查询
-     * @line https://union.jd.com/#/openplatform/api/693
      * @param $parentId
      * @param $grade
      * @return bool|string
      * @throws \Exception
+     * @api  商品类目查询
+     * @line https://union.jd.com/#/openplatform/api/693
      */
     public function category($parentId = 0, $grade = 0)
     {
@@ -160,8 +160,6 @@ class Good extends JdGateWay
     }
 
     /**
-     * @api 京粉精选商品查询接口
-     * @line https://union.jd.com/openplatform/api/739
      * @param int $eliteId
      * 频道id：1-好券商品；
      *        2-京粉APP.大咖推荐；
@@ -185,6 +183,8 @@ class Good extends JdGateWay
      * @param string $sort 默认降序  asc,desc升降序
      * @return bool|string
      * @throws \Exception
+     * @api 京粉精选商品查询接口
+     * @line https://union.jd.com/openplatform/api/739
      */
     public function jingfen($eliteId = 1, $pageIndex = 1, $pageSize = 50, $sortName = 'price', $sort = 'desc')
     {
@@ -201,6 +201,50 @@ class Good extends JdGateWay
 
         $result = $this->send('jd.union.open.goods.jingfen.query', $params, true);
 
+        return $result;
+    }
+
+    /**
+     * 大字段商品查询接口（内测版）【申请】
+     * jd.union.open.goods.bigfield.query
+     * @param $skuId
+     * @param $fieldList
+     * @Line https://union.jd.com/openplatform/api/761
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function bigFieldQuery($skuIds, $fieldList)
+    {
+        $params = [
+            'goodsReq' => [
+                'skuIds' => $skuIds,
+                'fields' => $fieldList
+            ]
+        ];
+
+        $result = $this->send('jd.union.open.goods.bigfield.query', $params);
+        return $result;
+    }
+
+    /**
+     * 链接商品查询接口【申请】
+     * jd.union.open.goods.link.query
+     * @param $url 链接
+     * @param $subUnionId 子联盟ID（需要联系运营开通权限才能拿到数据）
+     * @return bool|string
+     * @throws \Exception
+     * @api https://union.jd.com/openplatform/api/762
+     */
+    public function linkQuery($url, $subUnionId)
+    {
+        $params = [
+            'goodsReq' => [
+                'url' => $url,
+                'subUnionId' => $subUnionId
+            ]
+        ];
+
+        $result = $this->send('jd.union.open.goods.link.query', $params);
         return $result;
     }
 }

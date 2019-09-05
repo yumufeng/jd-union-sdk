@@ -64,8 +64,8 @@ var_dump($result);
 |jd.union.open.promotion.byunionid.get(通过unionId获取推广链接【**申请**】)   | \$client->link->byUnionId()   |
 |jd.union.open.coupon.importation(优惠券导入【**申请**】)   | \$client->coupon->importation()   |
 |jd.union.open.position.query(查询推广位【**申请**】)   | \$client->promotion->queryPosition()   |
-|jd.union.open.position.create(创建推广位【**申请**】)   | \$client->promotion->createPosition()   |
-
+|jd.union.open.goods.bigfield.query(大字段商品查询接口（内测版）【**申请**】)   | \$client->good->bigFieldQuery()   |
+|jd.union.open.goods.link.query(链接商品查询接口【**申请**】)   | \$client->good->linkQuery()   |
 
 
 

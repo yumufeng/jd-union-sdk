@@ -46,8 +46,7 @@ class  swooleDemo
 
         $client = new \JdMediaSdk\JdFatory($config);
         $imageList = $client->good->info('5983028');
-        var_dump($imageList);
-        $response->end('index');
+        $response->end(json_encode($imageList));
     }
 
 }
