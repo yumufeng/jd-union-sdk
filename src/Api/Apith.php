@@ -97,7 +97,7 @@ class Apith extends JdGateWay
             'type' => $type,
             'spaceNameList' => implode(',', $spaceNameList)
         ];
-        if ($type == 1) {
+        if ($type !== 4) {
             $param = array_merge($param, [
                 'siteId' => $this->siteId
             ]);
