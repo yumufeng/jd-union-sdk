@@ -16,11 +16,11 @@ class Apith extends JdGateWay
     protected $is_auth = true;
 
     /**
-     * @api 优惠券领取情况查询接口【申请】
-     * @line https://union.jd.com/openplatform/api/627
      * @param $url
      * @return bool|string
      * @throws \Exception
+     * @api 优惠券领取情况查询接口【申请】
+     * @line https://union.jd.com/openplatform/api/627
      */
     public function queryCoupon($url)
     {
@@ -52,11 +52,11 @@ class Apith extends JdGateWay
 
 
     /**
-     * @api 秒杀商品查询接口【申请】
-     * @line https://union.jd.com/openplatform/api/667
      * @param array $params
      * @return bool|string
      * @throws \Exception
+     * @api 秒杀商品查询接口【申请】
+     * @line https://union.jd.com/openplatform/api/667
      */
     public function querySeckillGoods(array $params = [])
     {
@@ -79,14 +79,14 @@ class Apith extends JdGateWay
     }
 
     /**
-     * @api 创建推广位【申请】
-     * @link https://union.jd.com/openplatform/api/655
      * @param array $spaceNameList 推广位名称集合，英文 ,分割
      * @param string $key 目标联盟ID对应的授权key，在联盟推广管理页领取
      * @param int $unionType 1：cps推广位 2：cpc推广位
      * @param int $type 站点类型 1网站推广位2.APP推广位3.社交媒体推广位4.聊天工具推广位5.二维码推广
      * @return bool|string
      * @throws \Exception
+     * @api 创建推广位【申请】
+     * @link https://union.jd.com/openplatform/api/655
      */
     public function createPosition(array $spaceNameList, string $key, $unionType = 1, $type = 4)
     {
@@ -107,14 +107,14 @@ class Apith extends JdGateWay
     }
 
     /**
-     * @api 查询推广位【申请】
-     * @link https://union.jd.com/openplatform/api
      * @param string $key 目标联盟ID对应的授权key，在联盟推广管理页领取
      * @param int $pageIndex 页码，上限10000
      * @param int $pageSize 每页条数，上限100
      * @param int $unionType 联盟推广位类型，1：cps推广位 2：cpc推广位
      * @return bool|string
      * @throws \Exception
+     * @api 查询推广位【申请】
+     * @link https://union.jd.com/openplatform/api
      */
     public function queryPosition(string $key, $pageIndex = 1, $pageSize = 100, $unionType = 1)
     {
@@ -129,13 +129,13 @@ class Apith extends JdGateWay
     }
 
     /**
-     * @api 通过unionId获取推广链接
-     * @line https://union.jd.com/openplatform/api/631
      * @param $url
      * @param string $conponUrl
      * @param array $params 传入的配置参数
      * @return bool|string
      * @throws \Exception
+     * @api 通过unionId获取推广链接
+     * @line https://union.jd.com/openplatform/api/631
      */
     public function getByUnionidPromotion($url, $conponUrl = '', $params = [])
     {
@@ -155,4 +155,28 @@ class Apith extends JdGateWay
 
     }
 
+    /**
+     * 根据短链查询出落地页
+     * https://doc.apith.cn/#/api/jdunion/getLinkByShort
+     * @param $short
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function getLinkByShort($short)
+    {
+        $params['short'] = $short;
+        return $this->send('getLinkByShort', $params);
+    }
+
+    /**
+     * 根据短链接查询商品编号
+     * @link https://doc.apith.cn/#/api/jdunion/getSkuIdByShort
+     * @param $short
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function getSkuIdByShort($short){
+        $params['short'] = $short;
+        return $this->send('getSkuIdByShort', $params);
+    }
 }

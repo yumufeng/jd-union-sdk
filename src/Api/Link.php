@@ -5,15 +5,10 @@
  * Date: 2018/12/25
  * Time: 18:00
  */
-
 namespace JdMediaSdk\Api;
-
-
 use JdMediaSdk\Tools\JdGateWay;
-
 class Link extends JdGateWay
 {
-
     /**
      * @api 获取通用推广链接
      * @line https://union.jd.com/#/openplatform/api/691
@@ -31,14 +26,12 @@ class Link extends JdGateWay
             $params['positionId'] = $this->positionId;
         }
         $params['materialId'] = $url;
-
         $reqParams = [
             'promotionCodeReq' => $params,
         ];
         $result = $this->send('jd.union.open.promotion.common.get', $reqParams);
         return $result;
     }
-
     /**
      * @api 通过unionId获取推广链接【申请】
      * @line https://union.jd.com/openplatform/api/631
@@ -60,11 +53,9 @@ class Link extends JdGateWay
             $params['couponUrl'] = $conponUrl;
         }
         $params['materialId'] = $url;
-
         $reqParams = [
             'promotionCodeReq' => $params,
         ];
         return $this->send('jd.union.open.promotion.byunionid.get', $reqParams);
     }
-
 }
