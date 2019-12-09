@@ -27,7 +27,7 @@ class Link extends JdGateWay
         if (!isset($params['siteId'])) {
             $params['siteId'] = $this->siteId;
         }
-        if (!isset($params['positionId'])) {
+        if (!isset($params['positionId']) && !empty($this->positionId)) {
             $params['positionId'] = $this->positionId;
         }
         $params['materialId'] = $url;
@@ -53,17 +53,18 @@ class Link extends JdGateWay
         if (!isset($params['unionId'])) {
             $params['unionId'] = $this->unionId;
         }
-        if (!isset($params['positionId'])) {
+        if (!isset($params['positionId']) && !empty($this->positionId)) {
             $params['positionId'] = $this->positionId;
         }
-
-        $params['materialId'] = $url;
-
         if (!empty($conponUrl)) {
             $params['couponUrl'] = $conponUrl;
         }
-        return $this->send('getByUnionidPromotion', $params);
+        $params['materialId'] = $url;
 
+        $reqParams = [
+            'promotionCodeReq' => $params,
+        ];
+        return $this->send('jd.union.open.promotion.byunionid.get', $reqParams);
     }
 
 }

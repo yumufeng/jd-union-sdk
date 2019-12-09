@@ -108,7 +108,7 @@ class Promotion extends JdGateWay
         $params = [
             'positionReq' => $param
         ];
-        return $this->send('createPosition', $params);
+        return $this->send('jd.union.open.position.create', $params);
 
     }
 }
