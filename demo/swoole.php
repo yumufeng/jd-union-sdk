@@ -35,10 +35,10 @@ class  swooleDemo
     {
 
         $config = [
-            'appkey' => '947d298f358e40a0ac04b9712a6607cc',
-            'appSecret' => '153b00b1b7af492abe5f1a8499a16c87',
-            'apithId' => 'AKID5d0f7vfI79Ra7erpwa8n1pQJSNplSaqoQw9g',
-            'apithKey' => '3SxEW0g4FXlIoiQiD062j6sE4lYOrIJhA3DI8o',
+            'appkey' => '',
+            'appSecret' => '',
+            'apithId' => '',
+            'apithKey' => '',
             'unionId' => '1000586580',
             'positionId' => '1479909014',
             'siteId' => '1478724299'
