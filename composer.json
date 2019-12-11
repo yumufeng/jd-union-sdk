@@ -16,11 +16,5 @@
     "psr-4": {
       "JdMediaSdk\\": "src"
     }
-  },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://packagist.laravel-china.org"
-    }
   }
 }

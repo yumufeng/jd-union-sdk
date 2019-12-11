@@ -41,12 +41,12 @@ class Apith extends JdGateWay
      * @return bool|string
      * @throws \Exception
      */
-    public function queryGoods(array $params = [])
+    public function queryGoods(array $params = [], $raw = false)
     {
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
         }
-        $result = $this->send('queryGoods', $params);
+        $result = $this->send('queryGoods', $params, $raw = false);
         return $result;
     }
 
@@ -58,12 +58,12 @@ class Apith extends JdGateWay
      * @api 秒杀商品查询接口【申请】
      * @line https://union.jd.com/openplatform/api/667
      */
-    public function querySeckillGoods(array $params = [])
+    public function querySeckillGoods(array $params = [], $raw = false)
     {
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
         }
-        return $this->send('querySeckillGoods', $params);
+        return $this->send('querySeckillGoods', $params, $raw = false);
     }
 
     /**
