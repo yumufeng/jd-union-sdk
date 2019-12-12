@@ -53,8 +53,6 @@ var_dump($result);
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
-| (京东商品详情图片集合接口)     | \$client->good->detailImgLists() |
-| (京东主图图片集合接口)     | \$client->good->goodImgLists() |
 
 | 接口名称 [**高级**] **官方版**   | 对应方法  |
 | --------   | ---- |
@@ -84,8 +82,8 @@ var_dump($result);
 |jd.union.open.position.query(查询推广位【**申请**】)   | \$client->apith->queryPosition()   |
 |jd.union.open.position.create(创建推广位【**申请**】)   | \$client->apith->createPosition()   |
 |商品主图列表查询【**申请**】   | \$client->apith->getGoodsImageList()   |
-
-
+|根据短链查询出落地页【**申请**】   | \$client->apith->getLinkByShort()   |
+|根据短链接查询商品编号【**申请**】   | \$client->apith->getSkuIdByShort()   |
 
 ## License
 

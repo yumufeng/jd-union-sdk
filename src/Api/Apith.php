@@ -46,7 +46,7 @@ class Apith extends JdGateWay
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
         }
-        $result = $this->send('queryGoods', $params, $raw = false);
+        $result = $this->send('queryGoods', $params, $raw);
         return $result;
     }
 
@@ -63,7 +63,7 @@ class Apith extends JdGateWay
         if (!isset($params['pageIndex'])) {
             $params['pageIndex'] = 1;
         }
-        return $this->send('querySeckillGoods', $params, $raw = false);
+        return $this->send('querySeckillGoods', $params, $raw);
     }
 
     /**

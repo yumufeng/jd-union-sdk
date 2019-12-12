@@ -42,7 +42,7 @@ class Good extends JdGateWay
      * @link https://union.jd.com/openplatform/api/666
      * @api 学生价商品查询接口【申请】
      */
-    public function stuprice(array $param)
+    public function stuprice(array $param, $raw = false)
     {
         //TODO
         if (!isset($param['pageIndex'])) {
@@ -52,7 +52,7 @@ class Good extends JdGateWay
             'goodsReq' => $param
         ];
 
-        return $this->send('jd.union.open.goods.stuprice.query', $params);
+        return $this->send('jd.union.open.goods.stuprice.query', $params, $raw);
     }
 
     /**
@@ -62,12 +62,12 @@ class Good extends JdGateWay
      * @api 秒杀商品查询接口【申请】
      * @line https://union.jd.com/openplatform/api/667
      */
-    public function seckill(array $params)
+    public function seckill(array $params, $raw = false)
     {
         $params = [
             'goodsReq' => $params
         ];
-        return $this->send('jd.union.open.goods.seckill.query', $params);
+        return $this->send('jd.union.open.goods.seckill.query', $params, $raw);
     }
 
     /**
@@ -87,56 +87,6 @@ class Good extends JdGateWay
         ];
         $result = $this->send('jd.union.open.goods.promotiongoodsinfo.query', $params);
         return $result;
-    }
-
-    /**
-     * @param $skuId
-     * @param bool $raw
-     * @return bool|mixed|string|null |null |null array
-     * @throws \Exception
-     * @api 获取详情的图片集合
-     */
-    public function detailImgLists($skuId, $raw = false)
-    {
-        $link = "https://item.jd.com/{$skuId}.html";
-        $html = Helpers::curl_get($link);
-        $html_one = explode("desc: '", $html, 2);
-        if (!isset($html_one[1]) || empty($html_one[1])) {
-            return null;
-        }
-        $html_two = explode("',", $html_one[1], 2);
-        $imgLink = 'http:' . $html_two[0];
-        $detail = Helpers::curl_get($imgLink);
-        if (strpos($detail, 'showdesc') !== false) {
-            $detail = str_replace(['showdesc(', '\\'], '', $detail);
-            $detail = rtrim($detail, ')');
-        } else {
-            $json = json_decode($detail, true);
-            $detail = $json['content'];
-        }
-        $content_detail = $detail;
-        $detail = Helpers::get_images_from_html($content_detail);
-        if (empty($detail)) {
-            $detail = Helpers::get_images_from_css($content_detail);
-        }
-        return $detail;
-    }
-
-    /**
-     * 获取商品主图信息
-     * @param $skuId
-     * @return mixed
-     */
-    public function goodImgLists($skuId)
-    {
-        $link = "http://item.jd.com/{$skuId}.html";
-        $html = Helpers::curl_get($link);
-        preg_match("/imageList: \[(\S+)\]/", $html, $regs);
-        $imgList = explode(',', $regs[1]);
-        foreach ($imgList as &$item) {
-            $item = 'http://img14.360buyimg.com/n1/' . trim($item, '"');
-        }
-        return $imgList;
     }
 
     /**
