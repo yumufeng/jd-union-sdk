@@ -177,6 +177,26 @@ class Good extends JdGateWay
     }
 
     /**
+     * 根据短链获取落地页
+     * @param $shortUrl
+     * @return bool
+     */
+    public function getLinkByShortUrl($shortUrl)
+    {
+        $html = Helpers::curl_get($shortUrl);
+        preg_match("/hrl='(\S+)'/", $html, $regs);
+        if (count($regs) > 1) {
+            //短链接对应的长链接
+            $longurl = $regs[1];
+            //用curl获取这个长链接的跳转的302地址
+            $url = Helpers::curl_get_302($longurl);
+            return $url;
+        }
+        return false;
+    }
+
+
+    /**
      * 链接商品查询接口【申请】
      * jd.union.open.goods.link.query
      * @param $url 链接

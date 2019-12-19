@@ -22,7 +22,7 @@ $config = [
     'appSecret' => '', // 密钥
     'unionId' => '', // 联盟ID
     'positionId' => '', // 推广位ID
-    'siteId' => '' // 网站ID,
+    'siteId' => '', // 网站ID,
     'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
     'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
     'isCurl' => true // 设置为true的话，强制使用php的curl，为false的话，在swoole cli环境下自动启用 http协程客户端
@@ -53,6 +53,8 @@ var_dump($result);
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
+| 根据短链查询出落地页  | \$client->good->getLinkByShortUrl()   |
+
 
 | 接口名称 [**高级**] **官方版**   | 对应方法  |
 | --------   | ---- |

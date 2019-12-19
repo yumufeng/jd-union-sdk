@@ -11,10 +11,10 @@ namespace JdMediaSdk\Tools;
 class Helpers
 {
     /**
-     * @api 共用发送get请求
      * @param $url
      * @param array $header
      * @return bool|string
+     * @api 共用发送get请求
      */
     public static function curl_get($url, $header = [])
     {
@@ -77,33 +77,18 @@ class Helpers
         return $output;
     }
 
-    /**
-     * @api 发送get请求
-     * @param $content
-     * @return null
-     *  从HTML文本中提取所有图片
-     */
-    public static function get_images_from_html($content)
+    public static function curl_get_302($url)
     {
-        $pattern = "/<img.*?data-lazyload=[\'|\"](.*?)[\'|\"].*?[\/]?>/";
-        preg_match_all($pattern, $content, $match);
-        if (!empty($match[1])) {
-            return $match[1];
-        }
-        return null;
-    }
-
-    /**
-     * 从css中获取图片
-     * @param $content
-     * @return |null
-     */
-    public static function get_images_from_css($content)
-    {
-        preg_match_all("/background-image:url\((.*)\)/", $content, $match);
-        if (!empty($match[1])) {
-            return $match[1];
-        }
-        return null;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // 302 redirect
+        $data = curl_exec($ch);
+        $Headers = curl_getinfo($ch);
+        curl_close($ch);
+        if ($data != $Headers)
+            return $Headers["url"];
+        else
+            return false;
     }
 }

@@ -133,9 +133,8 @@ class JdGateWay
         $dateTime = \gmdate("D, d M Y H:i:s T");
         $SecretId = $this->apithId;
         $SecretKey = $this->apithKey;
-        //参与签名计算的的两个参数(date和source)
-        $srcStr = "date: " . $dateTime . "\n" . "source: " . $urls['host'];
-        $Authen = 'hmac id="' . $SecretId . '", algorithm="hmac-sha1", headers="date source", signature="';
+        $srcStr = "date: " . $dateTime;
+        $Authen = 'hmac id="' . $SecretId . '", algorithm="hmac-sha1", headers="date", signature="';
         $signStr = base64_encode(hash_hmac('sha1', $srcStr, $SecretKey, true));
         $Authen = $Authen . $signStr . "\"";
         // 默认curl的 header
