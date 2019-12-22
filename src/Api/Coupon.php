@@ -41,7 +41,7 @@ class Coupon extends JdGateWay
     public function query($url)
     {
         if (is_string($url)) {
-            $params['couponUrls'] = $url;
+            $params['couponUrls'] = [$url];
         } else {
             $params['couponUrls'] = implode(',', $url);
         }
