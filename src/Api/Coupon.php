@@ -40,10 +40,10 @@ class Coupon extends JdGateWay
      */
     public function query($url)
     {
-        if (is_string($url)) {
+        if (is_array($url)) {
             $params['couponUrls'] = $url;
         } else {
-            $params['couponUrls'] = implode(',', $url);
+            $params['couponUrls'] = [$url];
         }
         return $this->send('jd.union.open.coupon.query', $params);
 
