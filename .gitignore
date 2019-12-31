@@ -1,5 +1,6 @@
-/vendor/
-.idea/
+.idea
+.user.ini
 composer.lock
 index.php
 demo
+vendor

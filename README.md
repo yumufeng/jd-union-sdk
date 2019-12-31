@@ -54,6 +54,7 @@ var_dump($result);
 | jd.union.open.promotion.common.get(获取通用推广链接)     | \$client->link->get() |
 | jd.union.open.goods.jingfen.query (京粉精选商品查询接口)     | \$client->good->jingfen() |
 | 根据短链查询出落地页  | \$client->good->getLinkByShortUrl()   |
+| jd.union.open.statistics.giftcoupon.query(活动查询接口)   | \$client->activity->query()   |
 
 
 | 接口名称 [**高级**] **官方版**   | 对应方法  |
@@ -65,9 +66,9 @@ var_dump($result);
 |jd.union.open.coupon.importation(优惠券导入【**申请**】)   | \$client->coupon->importation()   |
 |jd.union.open.position.query(查询推广位【**申请**】)   | \$client->promotion->queryPosition()   |
 |jd.union.open.goods.bigfield.query(大字段商品查询接口（内测版）【**申请**】)   | \$client->good->bigFieldQuery()   |
-|jd.union.open.goods.link.query(链接商品查询接口【**申请**】)   | \$client->good->linkQuery()   |
-
-
+|jd.union.open.coupon.gift.get(礼金创建【**申请**】)   | \$client->gift->get()   |
+|jd.union.open.coupon.gift.stop(礼金停止【**申请**】)   | \$client->gift->stop()   |
+|jd.union.open.statistics.giftcoupon.query(礼金停止【**申请**】)   | \$client->gift->query()   |
 
 
 ### 2.Apith版
@@ -89,7 +90,10 @@ var_dump($result);
 
 ## License
 
-MIT
+Apache 
+
+
+
 
 
 
