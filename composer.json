@@ -8,7 +8,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "yumufeng/curl-swoole": "^1.0"
   },
   "autoload": {
     "classmap": [

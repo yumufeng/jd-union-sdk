@@ -9,6 +9,7 @@
 namespace JdMediaSdk\Tools;
 
 use JdMediaSdk\JdFatory;
+use yumufeng\curl\Curl;
 
 class JdGateWay
 {
@@ -58,7 +59,6 @@ class JdGateWay
         $this->appSecret = $config['appSecret'];
         $this->apithId = isset($config['apithId']) ? $config['apithId'] : '';
         $this->apithKey = isset($config['apithKey']) ? $config['apithKey'] : '';
-        $this->siteId = $config['siteId'];
         $this->unionId = $config['unionId'];
         $this->positionId = $config['positionId'];
         $this->pid = $config['unionId'] . '_' . $config['siteId'] . '_' . $config['positionId'];
@@ -175,7 +175,7 @@ class JdGateWay
             $str = self::setParameter($method, $specialParameter);
             $url = self::URL . $str;
         }
-        $result = $this->isCurl == true ? Helpers::fpm_curl_get($url, $header) : Helpers::curl_get($url, $header);
+        $result = $this->isCurl == true ? Curl::fpm_curl_get($url, $header) : Curl::curl_get($url, $header);
         return $this->parseReps($result, $raw);
 
     }
