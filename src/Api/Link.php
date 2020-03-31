@@ -35,6 +35,7 @@ class Link extends JdGateWay
         $result = $this->send('jd.union.open.promotion.common.get', $reqParams);
         return $result;
     }
+
     /**
      * @param $url
      * @param string $conponUrl
@@ -60,5 +61,25 @@ class Link extends JdGateWay
             'promotionCodeReq' => $params,
         ];
         return $this->send('jd.union.open.promotion.byunionid.get', $reqParams);
+    }
+
+    /**
+     * @api 社交媒体获取推广链接接口【申请】
+     */
+    public function bySubUnionId($subUnionId, $url, $conponUrl = '', $params = [])
+    {
+        if (!isset($params['positionId']) && !empty($this->positionId)) {
+            $params['positionId'] = $this->positionId;
+        }
+        if (!empty($conponUrl)) {
+            $params['couponUrl'] = $conponUrl;
+        }
+        $params['materialId'] = $url;
+        $params['subUnionId'] = $subUnionId;
+
+        $reqParams = [
+            'promotionCodeReq' => $params,
+        ];
+        return $this->send('jd.union.open.promotion.bysubunionid.get', $reqParams);
     }
 }

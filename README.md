@@ -62,6 +62,7 @@ var_dump($result);
 |jd.union.open.coupon.query(优惠券领取情况查询接口【**申请**】)   | \$client->coupon->query()   |
 |jd.union.open.goods.seckill.query(秒杀商品查询接口【**申请**】)   | \$client->good->seckill()   |
 |jd.union.open.goods.query(关键词商品查询接口【**申请**】)   | \$client->good->query()   |
+|jd.union.open.promotion.bysubunionid.get(社交媒体获取推广链接接口【**申请**】)   | \$client->link->bySubUnionId()   |
 |jd.union.open.promotion.byunionid.get(通过unionId获取推广链接【**申请**】)   | \$client->link->byUnionId()   |
 |jd.union.open.coupon.importation(优惠券导入【**申请**】)   | \$client->coupon->importation()   |
 |jd.union.open.position.query(查询推广位【**申请**】)   | \$client->promotion->queryPosition()   |
