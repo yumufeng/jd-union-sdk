@@ -65,7 +65,6 @@ class JdGateWay
         $this->jdFatory = $jdFatory;
         $this->isCurl = isset($config['isCurl']) && ($config['isCurl'] == true) ? true : false;
         $this->siteId=$config['siteId'];
-
     }
 
     protected function setError($message)
