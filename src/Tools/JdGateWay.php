@@ -54,7 +54,6 @@ class JdGateWay
      */
     public function __construct(array $config, JdFatory $jdFatory)
     {
-
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
         $this->apithId = isset($config['apithId']) ? $config['apithId'] : '';
