@@ -66,6 +66,7 @@ class JdGateWay
         $this->siteId=$config['siteId'];
     }
 
+
     protected function setError($message)
     {
         $this->jdFatory->setError($message);
