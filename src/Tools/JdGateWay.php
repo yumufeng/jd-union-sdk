@@ -54,7 +54,6 @@ class JdGateWay
      */
     public function __construct(array $config, JdFatory $jdFatory)
     {
-
         $this->appkey = $config['appkey'];
         $this->appSecret = $config['appSecret'];
         $this->apithId = isset($config['apithId']) ? $config['apithId'] : '';
@@ -64,7 +63,9 @@ class JdGateWay
         $this->pid = $config['unionId'] . '_' . $config['siteId'] . '_' . $config['positionId'];
         $this->jdFatory = $jdFatory;
         $this->isCurl = isset($config['isCurl']) && ($config['isCurl'] == true) ? true : false;
+        $this->siteId=$config['siteId'];
     }
+
 
     protected function setError($message)
     {
