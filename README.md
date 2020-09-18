@@ -72,7 +72,19 @@ var_dump($result);
 |jd.union.open.statistics.giftcoupon.query(礼金停止【**申请**】)   | \$client->gift->query()   |
 
 
-### 2.Apith版
+### 2.京佣版
+
+
+没有**高级权限**的，可以点击 加QQ 445328312 辅助获取 京佣 高级权限（由于时间有限 100人/次 服务费用，一次开通，永久使用，不限制调用量）
+
+| 接口名称 [**高级**]  **京佣版** | 对应方法  |
+| --------   | ---- |
+|关键词商品查询接口【**申请**】   | \$client->jingyong->queryGood()   |
+|订单查询接口,支持“subid”进行返利跟踪【**申请**】   | \$client->jingyong->order()   |
+|长短转链接口,支持“subid”进行返利跟踪【**申请**】   | \$client->jingyong->convert()   |
+
+
+### 3.Apith版
 
 
 没有**Apith高级权限**的，可以点击 https://apith.cn/invite/4SO80R60 （用github登录即可 ，28元/月，收费的哦）。
@@ -88,7 +100,6 @@ var_dump($result);
 |商品主图列表查询【**申请**】   | \$client->apith->getGoodsImageList()   |
 |根据短链查询出落地页【**申请**】   | \$client->apith->getLinkByShort()   |
 |根据短链接查询商品编号【**申请**】   | \$client->apith->getSkuIdByShort()   |
-
 ## License
 
 Apache 

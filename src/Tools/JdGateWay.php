@@ -23,6 +23,11 @@ class JdGateWay
     protected $unionId;
     protected $positionId;
     protected $pid;
+
+    /**
+     * 京佣code
+     */
+    protected $jyCode;
     /**
      * @api https://apith.cn/dashboard/key 获取地址
      * @var mixed|string
@@ -47,6 +52,7 @@ class JdGateWay
      */
     private $isCurl = false;
 
+
     /**
      * JdGateWay constructor.
      * @param array $config
@@ -63,7 +69,8 @@ class JdGateWay
         $this->pid = $config['unionId'] . '_' . $config['siteId'] . '_' . $config['positionId'];
         $this->jdFatory = $jdFatory;
         $this->isCurl = isset($config['isCurl']) && ($config['isCurl'] == true) ? true : false;
-        $this->siteId=$config['siteId'];
+        $this->siteId = $config['siteId'];
+        $this->jyCode = $config['jyCode'];
     }
 
 

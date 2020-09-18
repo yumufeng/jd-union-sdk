@@ -11,6 +11,7 @@ namespace JdMediaSdk;
 use JdMediaSdk\Api\Apith;
 use JdMediaSdk\Api\Coupon;
 use JdMediaSdk\Api\Good;
+use JdMediaSdk\Api\Jingyong;
 use JdMediaSdk\Api\Link;
 use JdMediaSdk\Api\Promotion;
 
@@ -20,6 +21,7 @@ use JdMediaSdk\Api\Promotion;
  * @property Link link 获取推广链接API
  * @property Coupon coupon 优惠券API
  * @property Apith apith 高级权限APi
+ * @property Jingyong jingyong 京佣API
  */
 class JdFatory
 {
