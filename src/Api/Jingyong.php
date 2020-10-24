@@ -69,17 +69,27 @@ class Jingyong extends JdGateWay
         ];
         if (!empty($couponUrl)) {
             $params['couponUrl'] = $couponUrl;
+        }
+        if (!empty($subUnionId)) {
             $params['subUnionId'] = $subUnionId;
         }
         return $this->post('/out/cps/getUrl', $params);
     }
 
 
-    protected function post($method, $param)
+    protected function post($method, $param, $isJson = true)
     {
-        $url = $this->jyurl + $method;
+        $url = $this->jyurl . $method;
         $param['code'] = $this->jyCode;
         $data = \json_encode($param);
-        return Curl::curl_post($url, $data);
+        $header = [];
+        if ($isJson) {
+            $header = [
+                'Content-Type' => 'application/json; charset=utf-8',
+                'Content-Length' => strlen($data)
+            ];
+        }
+        $result = Curl::curl_post($url, $data, $header);
+        return \json_decode($result, true);
     }
 }
