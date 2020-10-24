@@ -70,7 +70,7 @@ class JdGateWay
         $this->jdFatory = $jdFatory;
         $this->isCurl = isset($config['isCurl']) && ($config['isCurl'] == true) ? true : false;
         $this->siteId = $config['siteId'];
-        $this->jyCode = $config['jyCode'];
+        $this->jyCode = isset($config['jyCode']) ? $config['jyCode'] : '';
     }
 
 
