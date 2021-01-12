@@ -17,13 +17,14 @@ PHP =>7.0
 
 ```php
 $config = [
-    'appkey' => '', // AppId
-    'appSecret' => '', // 密钥
-    'unionId' => '', // 联盟ID
-    'positionId' => '', // 推广位ID
-    'siteId' => '', // 网站ID,
+    'appkey' => '', // AppId （京东联盟的appkey）
+    'appSecret' => '', // 密钥 （京东联盟的appSecret）
+    'unionId' => '', // 联盟ID （如果使用京东联盟的，填京东联盟的，使用京佣的填京佣的）
+    'positionId' => '', // 推广位ID （如果使用京东联盟的，填京东联盟的，使用京佣的填京佣的）
+    'siteId' => '', // 网站ID, （如果使用京东联盟的，填京东联盟的，使用京佣的填京佣的）
     'apithId' => '',  // 第三方网站Apith的appid （可选，不使用apith的，可以不用填写）
     'apithKey' => '', // 第三方网站Apith的appSecret (可选，不使用apith的，可以不用填写)
+    'jyCode' => '', // 京东京佣的API授权调用code (可选，不使用京佣的，可以不用填写)
     'isCurl' => true // 设置为true的话，强制使用php的curl，为false的话，在swoole cli环境下自动启用 http协程客户端
 ];
 $client = new \JdMediaSdk\JdFatory($config);
