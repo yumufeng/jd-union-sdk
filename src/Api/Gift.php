@@ -48,7 +48,7 @@ class Gift extends JdGateWay
      */
     public function query(array $param)
     {
-        $params['couponReq'] = $param;
+        $params['effectDataReq'] = $param;
         return $this->send('jd.union.open.statistics.giftcoupon.query', $params);
     }
 }
