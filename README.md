@@ -48,6 +48,7 @@ var_dump($result);
 | 接口名称 [**基础**]   | 对应方法  |
 | --------   | ---- |
 | jd.union.open.order.query (订单查询接口)     | \$client->promotion->order() |
+| jd.union.open.order.row.query (订单行查询接口)     | \$client->promotion->orderRow() |
 | jd.union.open.goods.promotiongoodsinfo.query (获取推广商品信息接口)     | \$client->good->info() |
 | jd.union.open.category.goods.get(商品类目查询)     | \$client->good->category() |
 | jd.union.open.user.pid.get(获取PID)     | \$client->promotion->pid() |

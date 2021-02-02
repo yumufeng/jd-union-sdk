@@ -38,6 +38,7 @@ class Promotion extends JdGateWay
 
     /**
      * @api 订单查询接口 （查询级别，分钟查询）
+     * @api 订单行查询接口 （查询级别，秒查询）
      * @line https://union.jd.com/openplatform/api/12707
      * @param array $params
      * @return bool|string
