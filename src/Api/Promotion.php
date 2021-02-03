@@ -36,6 +36,29 @@ class Promotion extends JdGateWay
         return $result;
     }
 
+    /**
+     * @api 订单查询接口 （查询级别，分钟查询）
+     * @api 订单行查询接口 （查询级别，秒查询）
+     * @line https://union.jd.com/openplatform/api/12707
+     * @param array $params
+     * @return bool|string
+     * @throws \Exception
+     */
+
+    public function orderRow(array $params)
+    {
+        if (!isset($params['pageIndex'])) {
+            $params['pageIndex'] = 1;
+        }
+        if (!isset($params['pageSize'])) {
+            $params['pageSize'] = 100;
+        }
+        $reqParams = [
+            'orderReq' => $params,
+        ];
+        return $this->send('jd.union.open.order.row.query', $reqParams, true);
+    }
+
 
     /**
      * @api 获取PID
